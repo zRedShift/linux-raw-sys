@@ -488,13 +488,13 @@ fn run_bindgen(
         // Two-pass: run bindgen with and without clang_macro_fallback to
         // identify which constants come from function-like macros.
         let without_path = format!("{}.no_fb", mod_rs);
-        make_base_builder(linux_include, header_name, &clang_target)
+        make_ioctl_builder(linux_include, header_name, &clang_target, rust_arch)
             .generate()
             .expect("generate ioctl bindings without fallback")
             .write_to_file(&without_path)
             .expect("write ioctl bindings without fallback");
 
-        make_base_builder(linux_include, header_name, &clang_target)
+        make_ioctl_builder(linux_include, header_name, &clang_target, rust_arch)
             .clang_macro_fallback()
             .generate()
             .expect("generate ioctl bindings with fallback")
@@ -539,6 +539,28 @@ fn run_bindgen(
     bindings
         .write_to_file(mod_rs)
         .unwrap_or_else(|_| panic!("write_to_file for {}", mod_name));
+}
+
+fn make_ioctl_builder(
+    linux_include: &str,
+    header_name: &str,
+    clang_target: &str,
+    rust_arch: &str,
+) -> bindgen::Builder {
+    let mut builder = make_base_builder(linux_include, header_name, clang_target);
+
+    if rust_arch == "m68k" {
+        // GCC's Linux m68k ABI aligns __u64/__s64 to 2 bytes unless the UAPI
+        // uses explicit aligned types. Clang's m68k target reports 8-byte
+        // alignment for unsigned long long, which overstates _IO*()
+        // sizeof(struct ...) values. The ioctl module emits constants only
+        // after filtering, so limit this compatibility shim to ioctl probing.
+        builder = builder
+            .clang_arg("-include")
+            .clang_arg("include/m68k-ioctl-abi.h");
+    }
+
+    builder
 }
 
 /// Extract all `pub const` names from a generated .rs file.
