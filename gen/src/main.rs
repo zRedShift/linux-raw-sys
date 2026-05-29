@@ -115,6 +115,11 @@ const NON_IOCTL_EXACT: &[&str] = &[
     "MSDOS_DPS",
     "OPEN_TREE_CLOEXEC",
     "RFKILL_EVENT_SIZE_V1",
+    "SNDRV_CTL_VERSION",
+    "SNDRV_HWDEP_VERSION",
+    "SNDRV_PCM_VERSION",
+    "SNDRV_RAWMIDI_VERSION",
+    "SNDRV_TIMER_VERSION",
     "TCSADRAIN",
     "TCSAFLUSH",
     "TCSANOW",
@@ -531,6 +536,9 @@ fn run_bindgen(
         //
         // [1]: https://github.com/rust-lang/rust-bindgen/issues/3312
         builder = builder.blocklist_type("^s?size_t$");
+    }
+    if mod_name == "sound" {
+        builder = builder.clang_macro_fallback();
     }
 
     let bindings = builder
