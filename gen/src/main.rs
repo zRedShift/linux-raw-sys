@@ -537,8 +537,11 @@ fn run_bindgen(
         // [1]: https://github.com/rust-lang/rust-bindgen/issues/3312
         builder = builder.blocklist_type("^s?size_t$");
     }
-    if mod_name == "sound" {
+    if matches!(mod_name, "bluetooth" | "sound") {
         builder = builder.clang_macro_fallback();
+    }
+    if mod_name == "bluetooth" {
+        builder = builder.blocklist_type("^sk_buff$");
     }
 
     let bindings = builder

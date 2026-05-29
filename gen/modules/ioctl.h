@@ -34,6 +34,7 @@
 #include <linux/blktrace_api.h>
 #include <linux/blkzoned.h>
 #include <linux/bt-bmc.h>
+#include "bluetooth-ioctl.h"
 #include <linux/btrfs.h>
 #include <linux/capi.h>
 #include <linux/cciss_ioctl.h>
