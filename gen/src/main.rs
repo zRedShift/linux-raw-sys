@@ -115,6 +115,9 @@ const NON_IOCTL_EXACT: &[&str] = &[
     "MSDOS_DPS",
     "OPEN_TREE_CLOEXEC",
     "RFKILL_EVENT_SIZE_V1",
+    "TCSADRAIN",
+    "TCSAFLUSH",
+    "TCSANOW",
     "VC_MAXMSGSIZE",
     "VMMDEVREQ_HGCM_CALL",
 ];
