@@ -20,7 +20,7 @@ static_assertions = "1.1.0"
 libc = "0.2.100"
 
 [package.metadata.docs.rs]
-features = ["default", "bootparam", "btrfs", "elf_uapi", "image", "ioctl", "landlock", "netlink", "io_uring", "if_arp", "if_ether", "if_packet", "net", "ptrace", "prctl", "elf", "xdp", "mempolicy", "system", "loop_device"]
+features = ["default", "bluetooth", "bootparam", "btrfs", "elf_uapi", "image", "ioctl", "landlock", "netlink", "io_uring", "if_arp", "if_ether", "if_packet", "net", "ptrace", "prctl", "elf", "xdp", "mempolicy", "sound", "system", "loop_device"]
 targets = ["x86_64-unknown-linux-gnu", "i686-unknown-linux-gnu"]
 
 [lints.rust.unexpected_cfgs]
@@ -32,6 +32,7 @@ check-cfg = [
 # The rest of this file is auto-generated!
 [features]
 auxvec = []
+bluetooth = []
 bootparam = []
 btrfs = []
 elf_uapi = []
@@ -51,6 +52,7 @@ net = []
 netlink = []
 prctl = []
 ptrace = []
+sound = []
 system = []
 vm_sockets = []
 xdp = []

@@ -723,6 +723,8 @@ pub zcrx_id: __u32,
 pub __resv2: __u32,
 pub __resv: [__u64; 3usize],
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const NR_OPEN: u32 = 1024;
 pub const NGROUPS_MAX: u32 = 65536;
 pub const ARG_MAX: u32 = 131072;
@@ -975,6 +977,15 @@ pub const SYNC_FILE_RANGE_WAIT_BEFORE: u32 = 1;
 pub const SYNC_FILE_RANGE_WRITE: u32 = 2;
 pub const SYNC_FILE_RANGE_WAIT_AFTER: u32 = 4;
 pub const SYNC_FILE_RANGE_WRITE_AND_WAIT: u32 = 7;
+pub const RWF_HIPRI: u32 = 1;
+pub const RWF_DSYNC: u32 = 2;
+pub const RWF_SYNC: u32 = 4;
+pub const RWF_NOWAIT: u32 = 8;
+pub const RWF_APPEND: u32 = 16;
+pub const RWF_NOAPPEND: u32 = 32;
+pub const RWF_ATOMIC: u32 = 64;
+pub const RWF_DONTCACHE: u32 = 128;
+pub const RWF_SUPPORTED: u32 = 255;
 pub const PROCFS_IOCTL_MAGIC: u8 = 102u8;
 pub const PAGE_IS_WPALLOWED: u32 = 1;
 pub const PAGE_IS_WRITTEN: u32 = 2;
@@ -989,6 +1000,13 @@ pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
 pub const IORING_RW_ATTR_FLAG_PI: u32 = 1;
 pub const IORING_FILE_INDEX_ALLOC: i32 = -1;
+pub const IOSQE_FIXED_FILE: u32 = 1;
+pub const IOSQE_IO_DRAIN: u32 = 2;
+pub const IOSQE_IO_LINK: u32 = 4;
+pub const IOSQE_IO_HARDLINK: u32 = 8;
+pub const IOSQE_ASYNC: u32 = 16;
+pub const IOSQE_BUFFER_SELECT: u32 = 32;
+pub const IOSQE_CQE_SKIP_SUCCESS: u32 = 64;
 pub const IORING_SETUP_IOPOLL: u32 = 1;
 pub const IORING_SETUP_SQPOLL: u32 = 2;
 pub const IORING_SETUP_SQ_AFF: u32 = 4;
@@ -1095,6 +1113,7 @@ pub const IORING_REGISTER_FILES_SKIP: i32 = -2;
 pub const IO_URING_OP_SUPPORTED: u32 = 1;
 pub const IORING_TIMESTAMP_HW_SHIFT: u32 = 16;
 pub const IORING_TIMESTAMP_TYPE_SHIFT: u32 = 17;
+pub const IORING_CQE_F_TSTAMP_HW: u32 = 65536;
 pub const IORING_ZCRX_AREA_SHIFT: u32 = 48;
 pub const IORING_MEM_REGION_TYPE_USER: _bindgen_ty_1 = _bindgen_ty_1::IORING_MEM_REGION_TYPE_USER;
 pub const IORING_MEM_REGION_REG_WAIT_ARG: _bindgen_ty_2 = _bindgen_ty_2::IORING_MEM_REGION_REG_WAIT_ARG;

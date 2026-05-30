@@ -34,6 +34,7 @@
 #include <linux/blktrace_api.h>
 #include <linux/blkzoned.h>
 #include <linux/bt-bmc.h>
+#include "bluetooth-ioctl.h"
 #include <linux/btrfs.h>
 #include <linux/capi.h>
 #include <linux/cciss_ioctl.h>
@@ -44,6 +45,7 @@
 #include <linux/dma-buf.h>
 #include <linux/dma-heap.h>
 #include <linux/dm-ioctl.h>
+#include <linux/eventpoll.h>
 #include <linux/ext4.h>
 #include <linux/f2fs.h>
 #include <linux/fb.h>
@@ -122,6 +124,16 @@
 #include <linux/sockios.h>
 #include <linux/sonet.h>
 #include <linux/sonypi.h>
+#ifndef __linux__
+#define __linux__
+#endif
+#ifdef __m68k__
+#pragma pack(push, 2)
+#endif
+#include <sound/asound.h>
+#ifdef __m68k__
+#pragma pack(pop)
+#endif
 #include <linux/stm.h>
 #include <linux/suspend_ioctls.h>
 #include <linux/switchtec_ioctl.h>

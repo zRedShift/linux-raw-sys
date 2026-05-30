@@ -57,7 +57,7 @@ pub sxdp_ifindex: __u32,
 pub sxdp_queue_id: __u32,
 pub sxdp_shared_umem_fd: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xdp_ring_offset {
 pub producer: __u64,
@@ -73,7 +73,7 @@ pub tx: xdp_ring_offset,
 pub fr: xdp_ring_offset,
 pub cr: xdp_ring_offset,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xdp_umem_reg {
 pub addr: __u64,
@@ -83,7 +83,7 @@ pub headroom: __u32,
 pub flags: __u32,
 pub tx_metadata_len: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xdp_statistics {
 pub rx_dropped: __u64,
@@ -98,32 +98,32 @@ pub tx_ring_empty_descs: __u64,
 pub struct xdp_options {
 pub flags: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct xsk_tx_metadata {
 pub flags: __u64,
 pub __bindgen_anon_1: xsk_tx_metadata__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xsk_tx_metadata__bindgen_ty_1__bindgen_ty_1 {
 pub csum_start: __u16,
 pub csum_offset: __u16,
 pub launch_time: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xsk_tx_metadata__bindgen_ty_1__bindgen_ty_2 {
 pub tx_timestamp: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xdp_desc {
 pub addr: __u64,
 pub len: __u32,
 pub options: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xdp_ring_offset_v1 {
 pub producer: __u64,
@@ -138,7 +138,7 @@ pub tx: xdp_ring_offset_v1,
 pub fr: xdp_ring_offset_v1,
 pub cr: xdp_ring_offset_v1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xdp_umem_reg_v1 {
 pub addr: __u64,
@@ -146,7 +146,7 @@ pub len: __u64,
 pub chunk_size: __u32,
 pub headroom: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xdp_statistics_v1 {
 pub rx_dropped: __u64,
@@ -154,6 +154,8 @@ pub rx_invalid_descs: __u64,
 pub tx_invalid_descs: __u64,
 }
 pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const XDP_SHARED_UMEM: u32 = 1;
 pub const XDP_COPY: u32 = 2;
 pub const XDP_ZEROCOPY: u32 = 4;

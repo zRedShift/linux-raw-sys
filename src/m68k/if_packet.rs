@@ -80,6 +80,7 @@ pub tp_drops: crate::ctypes::c_uint,
 pub tp_freeze_q_cnt: crate::ctypes::c_uint,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct tpacket_rollover_stats {
 pub tp_all: __u64,
@@ -151,6 +152,7 @@ pub ts_sec: crate::ctypes::c_uint,
 pub __bindgen_anon_1: tpacket_bd_ts__bindgen_ty_1,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Copy, Clone)]
 pub struct tpacket_hdr_v1 {
 pub block_status: __u32,
@@ -202,8 +204,10 @@ pub type_flags: __u16,
 pub id: __u16,
 pub max_num_members: __u32,
 }
-pub const __BIG_ENDIAN: u32 = 4321;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
+pub const __BIG_ENDIAN: u32 = 4321;
 pub const PACKET_HOST: u32 = 0;
 pub const PACKET_BROADCAST: u32 = 1;
 pub const PACKET_MULTICAST: u32 = 2;
@@ -267,6 +271,9 @@ pub const TP_STATUS_TS_SYS_HARDWARE: u32 = 1073741824;
 pub const TP_STATUS_TS_RAW_HARDWARE: u32 = 2147483648;
 pub const TP_FT_REQ_FILL_RXHASH: u32 = 1;
 pub const TPACKET_ALIGNMENT: u32 = 16;
+pub const TPACKET_HDRLEN: u32 = 52;
+pub const TPACKET2_HDRLEN: u32 = 52;
+pub const TPACKET3_HDRLEN: u32 = 68;
 pub const PACKET_MR_MULTICAST: u32 = 0;
 pub const PACKET_MR_PROMISC: u32 = 1;
 pub const PACKET_MR_ALLMULTI: u32 = 2;

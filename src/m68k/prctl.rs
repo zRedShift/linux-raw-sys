@@ -48,7 +48,7 @@ pub type __be64 = __u64;
 pub type __sum16 = __u16;
 pub type __wsum = __u32;
 pub type __poll_t = crate::ctypes::c_uint;
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct prctl_mm_map {
 pub start_code: __u64,
@@ -67,6 +67,8 @@ pub auxv_size: __u32,
 pub exe_fd: __u32,
 }
 pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const PR_SET_PDEATHSIG: u32 = 1;
 pub const PR_GET_PDEATHSIG: u32 = 2;
 pub const PR_GET_DUMPABLE: u32 = 3;
@@ -142,6 +144,7 @@ pub const PR_SET_MM_EXE_FILE: u32 = 13;
 pub const PR_SET_MM_MAP: u32 = 14;
 pub const PR_SET_MM_MAP_SIZE: u32 = 15;
 pub const PR_SET_PTRACER: u32 = 1499557217;
+pub const PR_SET_PTRACER_ANY: u32 = 4294967295;
 pub const PR_SET_CHILD_SUBREAPER: u32 = 36;
 pub const PR_GET_CHILD_SUBREAPER: u32 = 37;
 pub const PR_SET_NO_NEW_PRIVS: u32 = 38;

@@ -81,7 +81,7 @@ pub log2_data_unit_size: __u8,
 pub __reserved: [__u8; 3usize],
 pub master_key_identifier: [__u8; 16usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct fscrypt_get_policy_ex_arg {
 pub policy_size: __u64,
@@ -127,7 +127,7 @@ pub status_flags: __u32,
 pub user_count: __u32,
 pub __out_reserved: [__u32; 13usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct mount_attr {
 pub attr_set: __u64,
@@ -135,8 +135,7 @@ pub attr_clr: __u64,
 pub propagation: __u64,
 pub userns_fd: __u64,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct statmount {
 pub size: __u32,
 pub mnt_opts: __u32,
@@ -172,7 +171,7 @@ pub mnt_gidmap: __u32,
 pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
@@ -181,7 +180,7 @@ pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_clone_range {
 pub src_fd: __s64,
@@ -189,7 +188,7 @@ pub src_offset: __u64,
 pub src_length: __u64,
 pub dest_offset: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct fstrim_range {
 pub start: __u64,
@@ -224,7 +223,7 @@ pub lbmd_ref_tag_size: __u8,
 pub lbmd_storage_tag_size: __u8,
 pub pad: __u8,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_dedupe_range_info {
 pub dest_fd: __s64,
@@ -233,8 +232,7 @@ pub bytes_deduped: __u64,
 pub status: __s32,
 pub reserved: __u32,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct file_dedupe_range {
 pub src_offset: __u64,
 pub src_length: __u64,
@@ -267,7 +265,7 @@ pub fsx_projid: __u32,
 pub fsx_cowextsize: __u32,
 pub fsx_pad: [crate::ctypes::c_uchar; 8usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_attr {
 pub fa_xflags: __u64,
@@ -276,14 +274,14 @@ pub fa_nextents: __u32,
 pub fa_projid: __u32,
 pub fa_cowextsize: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct page_region {
 pub start: __u64,
 pub end: __u64,
 pub categories: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct pm_scan_arg {
 pub size: __u64,
@@ -299,7 +297,7 @@ pub category_mask: __u64,
 pub category_anyof_mask: __u64,
 pub return_mask: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct procmap_query {
 pub size: __u64,
@@ -318,7 +316,7 @@ pub build_id_size: __u32,
 pub vma_name_addr: __u64,
 pub build_id_addr: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_timespec {
 pub tv_sec: __kernel_time64_t,
@@ -348,13 +346,13 @@ pub struct __kernel_old_itimerval {
 pub it_interval: __kernel_old_timeval,
 pub it_value: __kernel_old_timeval,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_sock_timeval {
 pub tv_sec: __s64,
 pub tv_usec: __s64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 pub struct io_uring_sqe {
 pub opcode: __u8,
 pub flags: __u8,
@@ -400,21 +398,21 @@ pub __bindgen_anon_1: __BindgenUnionField<io_uring_sqe__bindgen_ty_6__bindgen_ty
 pub __bindgen_anon_2: __BindgenUnionField<io_uring_sqe__bindgen_ty_6__bindgen_ty_2>,
 pub optval: __BindgenUnionField<__u64>,
 pub cmd: __BindgenUnionField<[__u8; 0usize]>,
-pub bindgen_union_field: [u64; 2usize],
+pub bindgen_union_field: [u16; 8usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_sqe__bindgen_ty_6__bindgen_ty_1 {
 pub addr3: __u64,
 pub __pad2: [__u64; 1usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_sqe__bindgen_ty_6__bindgen_ty_2 {
 pub attr_ptr: __u64,
 pub attr_type_mask: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_attr_pi {
 pub flags: __u16,
@@ -424,15 +422,14 @@ pub addr: __u64,
 pub seed: __u64,
 pub rsvd: __u64,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct io_uring_cqe {
 pub user_data: __u64,
 pub res: __s32,
 pub flags: __u32,
 pub big_cqe: __IncompleteArrayField<__u64>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_sqring_offsets {
 pub head: __u32,
@@ -445,7 +442,7 @@ pub array: __u32,
 pub resv1: __u32,
 pub user_addr: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_cqring_offsets {
 pub head: __u32,
@@ -473,13 +470,14 @@ pub sq_off: io_sqring_offsets,
 pub cq_off: io_cqring_offsets,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_files_update {
 pub offset: __u32,
 pub resv: __u32,
 pub fds: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_region_desc {
 pub user_addr: __u64,
@@ -489,7 +487,7 @@ pub id: __u32,
 pub mmap_offset: __u64,
 pub __resv: [__u64; 4usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_mem_region_reg {
 pub region_uptr: __u64,
@@ -497,6 +495,7 @@ pub flags: __u64,
 pub __resv: [__u64; 2usize],
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_rsrc_register {
 pub nr: __u32,
@@ -506,6 +505,7 @@ pub data: __u64,
 pub tags: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_rsrc_update {
 pub offset: __u32,
@@ -513,6 +513,7 @@ pub resv: __u32,
 pub data: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_rsrc_update2 {
 pub offset: __u32,
@@ -563,7 +564,7 @@ pub dst_off: __u32,
 pub nr: __u32,
 pub pad: [__u32; 3usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_buf {
 pub addr: __u64,
@@ -579,9 +580,9 @@ pub __bindgen_anon_1: io_uring_buf_ring__bindgen_ty_1,
 pub struct io_uring_buf_ring__bindgen_ty_1 {
 pub __bindgen_anon_1: __BindgenUnionField<io_uring_buf_ring__bindgen_ty_1__bindgen_ty_1>,
 pub __bindgen_anon_2: __BindgenUnionField<io_uring_buf_ring__bindgen_ty_1__bindgen_ty_2>,
-pub bindgen_union_field: [u64; 2usize],
+pub bindgen_union_field: [u16; 8usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_buf_ring__bindgen_ty_1__bindgen_ty_1 {
 pub resv1: __u64,
@@ -598,7 +599,7 @@ pub bufs: __IncompleteArrayField<io_uring_buf>,
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_buf_ring__bindgen_ty_1__bindgen_ty_2__bindgen_ty_1 {}
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_buf_reg {
 pub ring_addr: __u64,
@@ -624,7 +625,7 @@ pub pad: [__u8; 2usize],
 pub op_param: __u32,
 pub resv: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_reg_wait {
 pub ts: __kernel_timespec,
@@ -635,7 +636,7 @@ pub sigmask_sz: __u32,
 pub pad: [__u32; 3usize],
 pub pad2: [__u64; 2usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_getevents_arg {
 pub sigmask: __u64,
@@ -643,7 +644,7 @@ pub sigmask_sz: __u32,
 pub min_wait_usec: __u32,
 pub ts: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_sync_cancel_reg {
 pub addr: __u64,
@@ -654,7 +655,7 @@ pub opcode: __u8,
 pub pad: [__u8; 7usize],
 pub pad2: [__u64; 3usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_file_index_range {
 pub off: __u32,
@@ -669,26 +670,26 @@ pub controllen: __u32,
 pub payloadlen: __u32,
 pub flags: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_timespec {
 pub tv_sec: __u64,
 pub tv_nsec: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_zcrx_rqe {
 pub off: __u64,
 pub len: __u32,
 pub __pad: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_zcrx_cqe {
 pub off: __u64,
 pub __pad: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_zcrx_offsets {
 pub head: __u32,
@@ -697,7 +698,7 @@ pub rqes: __u32,
 pub __resv2: __u32,
 pub __resv: [__u64; 2usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_zcrx_area_reg {
 pub addr: __u64,
@@ -707,7 +708,7 @@ pub flags: __u32,
 pub dmabuf_fd: __u32,
 pub __resv2: [__u64; 2usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct io_uring_zcrx_ifq_reg {
 pub if_idx: __u32,
@@ -721,6 +722,9 @@ pub zcrx_id: __u32,
 pub __resv2: __u32,
 pub __resv: [__u64; 3usize],
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const NR_OPEN: u32 = 1024;
 pub const NGROUPS_MAX: u32 = 65536;
 pub const ARG_MAX: u32 = 131072;
@@ -754,7 +758,6 @@ pub const IOC_OUT: u32 = 2147483648;
 pub const IOC_INOUT: u32 = 3221225472;
 pub const IOCSIZE_MASK: u32 = 1073676288;
 pub const IOCSIZE_SHIFT: u32 = 16;
-pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const FSCRYPT_POLICY_FLAGS_PAD_4: u32 = 0;
 pub const FSCRYPT_POLICY_FLAGS_PAD_8: u32 = 1;
 pub const FSCRYPT_POLICY_FLAGS_PAD_16: u32 = 2;
@@ -972,6 +975,15 @@ pub const SYNC_FILE_RANGE_WAIT_BEFORE: u32 = 1;
 pub const SYNC_FILE_RANGE_WRITE: u32 = 2;
 pub const SYNC_FILE_RANGE_WAIT_AFTER: u32 = 4;
 pub const SYNC_FILE_RANGE_WRITE_AND_WAIT: u32 = 7;
+pub const RWF_HIPRI: u32 = 1;
+pub const RWF_DSYNC: u32 = 2;
+pub const RWF_SYNC: u32 = 4;
+pub const RWF_NOWAIT: u32 = 8;
+pub const RWF_APPEND: u32 = 16;
+pub const RWF_NOAPPEND: u32 = 32;
+pub const RWF_ATOMIC: u32 = 64;
+pub const RWF_DONTCACHE: u32 = 128;
+pub const RWF_SUPPORTED: u32 = 255;
 pub const PROCFS_IOCTL_MAGIC: u8 = 102u8;
 pub const PAGE_IS_WPALLOWED: u32 = 1;
 pub const PAGE_IS_WRITTEN: u32 = 2;
@@ -986,6 +998,13 @@ pub const PM_SCAN_WP_MATCHING: u32 = 1;
 pub const PM_SCAN_CHECK_WPASYNC: u32 = 2;
 pub const IORING_RW_ATTR_FLAG_PI: u32 = 1;
 pub const IORING_FILE_INDEX_ALLOC: i32 = -1;
+pub const IOSQE_FIXED_FILE: u32 = 1;
+pub const IOSQE_IO_DRAIN: u32 = 2;
+pub const IOSQE_IO_LINK: u32 = 4;
+pub const IOSQE_IO_HARDLINK: u32 = 8;
+pub const IOSQE_ASYNC: u32 = 16;
+pub const IOSQE_BUFFER_SELECT: u32 = 32;
+pub const IOSQE_CQE_SKIP_SUCCESS: u32 = 64;
 pub const IORING_SETUP_IOPOLL: u32 = 1;
 pub const IORING_SETUP_SQPOLL: u32 = 2;
 pub const IORING_SETUP_SQ_AFF: u32 = 4;
@@ -1092,6 +1111,7 @@ pub const IORING_REGISTER_FILES_SKIP: i32 = -2;
 pub const IO_URING_OP_SUPPORTED: u32 = 1;
 pub const IORING_TIMESTAMP_HW_SHIFT: u32 = 16;
 pub const IORING_TIMESTAMP_TYPE_SHIFT: u32 = 17;
+pub const IORING_CQE_F_TSTAMP_HW: u32 = 65536;
 pub const IORING_ZCRX_AREA_SHIFT: u32 = 48;
 pub const IORING_MEM_REGION_TYPE_USER: _bindgen_ty_1 = _bindgen_ty_1::IORING_MEM_REGION_TYPE_USER;
 pub const IORING_MEM_REGION_REG_WAIT_ARG: _bindgen_ty_2 = _bindgen_ty_2::IORING_MEM_REGION_REG_WAIT_ARG;
@@ -1354,14 +1374,14 @@ pub __reserved: [__u8; 32usize],
 pub descriptor: [__u8; 8usize],
 pub identifier: [__u8; 16usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union io_uring_sqe__bindgen_ty_1 {
 pub off: __u64,
 pub addr2: __u64,
 pub __bindgen_anon_1: io_uring_sqe__bindgen_ty_1__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union io_uring_sqe__bindgen_ty_2 {
 pub addr: __u64,

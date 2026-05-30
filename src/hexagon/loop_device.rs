@@ -91,6 +91,9 @@ pub __reserved: [__u64; 8usize],
 }
 pub const LO_NAME_SIZE: u32 = 64;
 pub const LO_KEY_SIZE: u32 = 32;
+pub const LOOP_SET_STATUS_SETTABLE_FLAGS: u32 = 12;
+pub const LOOP_SET_STATUS_CLEARABLE_FLAGS: u32 = 4;
+pub const LOOP_CONFIGURE_SETTABLE_FLAGS: u32 = 29;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const LO_CRYPT_NONE: u32 = 0;
 pub const LO_CRYPT_XOR: u32 = 1;

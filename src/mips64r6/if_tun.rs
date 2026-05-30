@@ -87,6 +87,8 @@ pub flags: __u16,
 pub count: __u16,
 pub addr: __IncompleteArrayField<[__u8; 6usize]>,
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const _MIPS_ISA_MIPS1: u32 = 1;
 pub const _MIPS_ISA_MIPS2: u32 = 2;
@@ -273,6 +275,8 @@ pub const SKF_LL_OFF: i32 = -2097152;
 pub const BPF_NET_OFF: i32 = -1048576;
 pub const BPF_LL_OFF: i32 = -2097152;
 pub const TUN_READQ_SIZE: u32 = 500;
+pub const TUN_TUN_DEV: u32 = 1;
+pub const TUN_TAP_DEV: u32 = 2;
 pub const TUN_TYPE_MASK: u32 = 15;
 pub const IFF_TUN: u32 = 1;
 pub const IFF_TAP: u32 = 2;

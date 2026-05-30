@@ -223,6 +223,10 @@ pub mod elf;
 #[cfg(target_arch = "arm")]
 #[path = "arm/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/bootparam.rs"]
@@ -299,6 +303,10 @@ pub mod prctl;
 #[cfg(target_arch = "arm")]
 #[path = "arm/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "arm")]
+#[path = "arm/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "arm")]
 #[path = "arm/system.rs"]
@@ -315,6 +323,10 @@ pub mod xdp;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/bootparam.rs"]
@@ -391,6 +403,10 @@ pub mod prctl;
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "aarch64")]
+#[path = "aarch64/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "aarch64")]
 #[path = "aarch64/system.rs"]
@@ -407,6 +423,10 @@ pub mod xdp;
 #[cfg(target_arch = "csky")]
 #[path = "csky/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/bootparam.rs"]
@@ -483,6 +503,10 @@ pub mod prctl;
 #[cfg(target_arch = "csky")]
 #[path = "csky/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "csky")]
+#[path = "csky/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "csky")]
 #[path = "csky/system.rs"]
@@ -499,6 +523,10 @@ pub mod xdp;
 #[cfg(target_arch = "hexagon")]
 #[path = "hexagon/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "hexagon")]
+#[path = "hexagon/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "hexagon")]
 #[path = "hexagon/bootparam.rs"]
@@ -575,6 +603,10 @@ pub mod prctl;
 #[cfg(target_arch = "hexagon")]
 #[path = "hexagon/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "hexagon")]
+#[path = "hexagon/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "hexagon")]
 #[path = "hexagon/system.rs"]
@@ -591,6 +623,10 @@ pub mod xdp;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/bootparam.rs"]
@@ -667,6 +703,10 @@ pub mod prctl;
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "loongarch64")]
+#[path = "loongarch64/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "loongarch64")]
 #[path = "loongarch64/system.rs"]
@@ -683,6 +723,10 @@ pub mod xdp;
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "m68k")]
+#[path = "m68k/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/bootparam.rs"]
@@ -759,6 +803,10 @@ pub mod prctl;
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "m68k")]
+#[path = "m68k/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "m68k")]
 #[path = "m68k/system.rs"]
@@ -775,6 +823,10 @@ pub mod xdp;
 #[cfg(target_arch = "mips")]
 #[path = "mips/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/bootparam.rs"]
@@ -851,6 +903,10 @@ pub mod prctl;
 #[cfg(target_arch = "mips")]
 #[path = "mips/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "mips")]
+#[path = "mips/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips")]
 #[path = "mips/system.rs"]
@@ -867,6 +923,10 @@ pub mod xdp;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/bootparam.rs"]
@@ -943,6 +1003,10 @@ pub mod prctl;
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "mips64")]
+#[path = "mips64/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips64")]
 #[path = "mips64/system.rs"]
@@ -959,6 +1023,10 @@ pub mod xdp;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/bootparam.rs"]
@@ -1035,6 +1103,10 @@ pub mod prctl;
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "mips32r6")]
+#[path = "mips32r6/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips32r6")]
 #[path = "mips32r6/system.rs"]
@@ -1051,6 +1123,10 @@ pub mod xdp;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/bootparam.rs"]
@@ -1127,6 +1203,10 @@ pub mod prctl;
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "mips64r6")]
+#[path = "mips64r6/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "mips64r6")]
 #[path = "mips64r6/system.rs"]
@@ -1143,6 +1223,10 @@ pub mod xdp;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/bootparam.rs"]
@@ -1219,6 +1303,10 @@ pub mod prctl;
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "powerpc")]
+#[path = "powerpc/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "powerpc")]
 #[path = "powerpc/system.rs"]
@@ -1235,6 +1323,10 @@ pub mod xdp;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/bootparam.rs"]
@@ -1311,6 +1403,10 @@ pub mod prctl;
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "powerpc64")]
+#[path = "powerpc64/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "powerpc64")]
 #[path = "powerpc64/system.rs"]
@@ -1327,6 +1423,10 @@ pub mod xdp;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/bootparam.rs"]
@@ -1403,6 +1503,10 @@ pub mod prctl;
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "riscv32")]
+#[path = "riscv32/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "riscv32")]
 #[path = "riscv32/system.rs"]
@@ -1419,6 +1523,10 @@ pub mod xdp;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/bootparam.rs"]
@@ -1495,6 +1603,10 @@ pub mod prctl;
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "riscv64")]
+#[path = "riscv64/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "riscv64")]
 #[path = "riscv64/system.rs"]
@@ -1511,6 +1623,10 @@ pub mod xdp;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/bootparam.rs"]
@@ -1587,6 +1703,10 @@ pub mod prctl;
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "s390x")]
+#[path = "s390x/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "s390x")]
 #[path = "s390x/system.rs"]
@@ -1603,6 +1723,10 @@ pub mod xdp;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/bootparam.rs"]
@@ -1679,6 +1803,10 @@ pub mod prctl;
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "sparc")]
+#[path = "sparc/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "sparc")]
 #[path = "sparc/system.rs"]
@@ -1695,6 +1823,10 @@ pub mod xdp;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/bootparam.rs"]
@@ -1771,6 +1903,10 @@ pub mod prctl;
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "sparc64")]
+#[path = "sparc64/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "sparc64")]
 #[path = "sparc64/system.rs"]
@@ -1787,6 +1923,10 @@ pub mod xdp;
 #[cfg(target_arch = "x86")]
 #[path = "x86/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/bootparam.rs"]
@@ -1863,6 +2003,10 @@ pub mod prctl;
 #[cfg(target_arch = "x86")]
 #[path = "x86/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(target_arch = "x86")]
+#[path = "x86/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(target_arch = "x86")]
 #[path = "x86/system.rs"]
@@ -1879,6 +2023,10 @@ pub mod xdp;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/bootparam.rs"]
@@ -1955,6 +2103,10 @@ pub mod prctl;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
+#[path = "x86_64/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "64"))]
 #[path = "x86_64/system.rs"]
@@ -1971,6 +2123,10 @@ pub mod xdp;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/auxvec.rs"]
 pub mod auxvec;
+#[cfg(feature = "bluetooth")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/bluetooth.rs"]
+pub mod bluetooth;
 #[cfg(feature = "bootparam")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/bootparam.rs"]
@@ -2047,6 +2203,10 @@ pub mod prctl;
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/ptrace.rs"]
 pub mod ptrace;
+#[cfg(feature = "sound")]
+#[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
+#[path = "x32/sound.rs"]
+pub mod sound;
 #[cfg(feature = "system")]
 #[cfg(all(target_arch = "x86_64", target_pointer_width = "32"))]
 #[path = "x32/system.rs"]

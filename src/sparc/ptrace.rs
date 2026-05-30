@@ -234,6 +234,8 @@ pub srcfd: __u32,
 pub newfd: __u32,
 pub newfd_flags: __u32,
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const EM_NONE: u32 = 0;
 pub const EM_M32: u32 = 1;
@@ -587,10 +589,13 @@ pub const AUDIT_PERM_WRITE: u32 = 2;
 pub const AUDIT_PERM_READ: u32 = 4;
 pub const AUDIT_PERM_ATTR: u32 = 8;
 pub const AUDIT_MESSAGE_TEXT_MAX: u32 = 8560;
+pub const AUDIT_NLGRP_MAX: u32 = 1;
 pub const AUDIT_FEATURE_VERSION: u32 = 1;
 pub const AUDIT_FEATURE_ONLY_UNSET_LOGINUID: u32 = 0;
 pub const AUDIT_FEATURE_LOGINUID_IMMUTABLE: u32 = 1;
 pub const AUDIT_LAST_FEATURE: u32 = 1;
+pub const AUDIT_UID_UNSET: u32 = 4294967295;
+pub const AUDIT_SID_UNSET: u32 = 4294967295;
 pub const BPF_LD: u32 = 0;
 pub const BPF_LDX: u32 = 1;
 pub const BPF_ST: u32 = 2;
@@ -735,6 +740,8 @@ pub const PSR_VERS_SHIFTED_MASK: u32 = 15;
 pub const PSR_IMPL_SHIFTED_MASK: u32 = 15;
 pub const PSR_IMPL_TI: u32 = 4;
 pub const PSR_IMPL_LEON: u32 = 15;
+pub const TRACEREG_SZ: u32 = 80;
+pub const STACKFRAME_SZ: u32 = 96;
 pub const UREG_G0: u32 = 0;
 pub const UREG_G1: u32 = 1;
 pub const UREG_G2: u32 = 2;
