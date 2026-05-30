@@ -187,6 +187,8 @@ struct bt_codecs {
 #define L2CAP_DEFAULT_TX_WINDOW 63
 #define L2CAP_DEFAULT_EXT_WINDOW 0x3FFF
 #define L2CAP_DEFAULT_MAX_TX 3
+#define L2CAP_DEFAULT_RETRANS_TO 2
+#define L2CAP_DEFAULT_MONITOR_TO 12
 #define L2CAP_DEFAULT_MAX_PDU_SIZE 1492
 #define L2CAP_DEFAULT_ACK_TO 200
 #define L2CAP_DEFAULT_MAX_SDU_SIZE 0xFFFF
@@ -285,36 +287,36 @@ struct l2cap_cmd_hdr {
 } __packed;
 #define L2CAP_CMD_HDR_SIZE 4
 
-#define SCO_DEFAULT_MTU 500
-struct sockaddr_sco {
-    sa_family_t sco_family;
-    bdaddr_t sco_bdaddr;
-};
-#define SCO_OPTIONS 0x01
-struct sco_options {
-    __u16 mtu;
-};
-#define SCO_CONNINFO 0x02
-struct sco_conninfo {
-    __u16 hci_handle;
-    __u8 dev_class[3];
-};
+#define L2CAP_PSM_SDP 0x0001
+#define L2CAP_PSM_RFCOMM 0x0003
+#define L2CAP_PSM_3DSP 0x0021
+#define L2CAP_PSM_IPSP 0x0023
+#define L2CAP_PSM_DYN_START 0x1001
+#define L2CAP_PSM_DYN_END 0xffff
+#define L2CAP_PSM_AUTO_END 0x10ff
+#define L2CAP_PSM_LE_DYN_START 0x0080
+#define L2CAP_PSM_LE_DYN_END 0x00ff
 
-#define ISO_DEFAULT_MTU 251
-#define ISO_MAX_NUM_BIS 0x1f
-struct sockaddr_iso_bc {
-    bdaddr_t bc_bdaddr;
-    __u8 bc_bdaddr_type;
-    __u8 bc_sid;
-    __u8 bc_num_bis;
-    __u8 bc_bis[ISO_MAX_NUM_BIS];
-};
-struct sockaddr_iso {
-    sa_family_t iso_family;
-    bdaddr_t iso_bdaddr;
-    __u8 iso_bdaddr_type;
-    struct sockaddr_iso_bc iso_bc[];
-};
+#define L2CAP_CID_SIGNALING 0x0001
+#define L2CAP_CID_CONN_LESS 0x0002
+#define L2CAP_CID_ATT 0x0004
+#define L2CAP_CID_LE_SIGNALING 0x0005
+#define L2CAP_CID_SMP 0x0006
+#define L2CAP_CID_SMP_BREDR 0x0007
+#define L2CAP_CID_DYN_START 0x0040
+#define L2CAP_CID_DYN_END 0xffff
+#define L2CAP_CID_LE_DYN_END 0x007f
+
+#define L2CAP_MODE_BASIC 0x00
+#define L2CAP_MODE_RETRANS 0x01
+#define L2CAP_MODE_FLOWCTL 0x02
+#define L2CAP_MODE_ERTM 0x03
+#define L2CAP_MODE_STREAMING 0x04
+#define L2CAP_MODE_LE_FLOWCTL 0x80
+#define L2CAP_MODE_EXT_FLOWCTL 0x81
+
+#include "../linux/include/net/bluetooth/sco.h"
+#include "../linux/include/net/bluetooth/iso.h"
 
 #define RFCOMM_DEFAULT_MTU 127
 #define RFCOMM_DEFAULT_CREDITS 7

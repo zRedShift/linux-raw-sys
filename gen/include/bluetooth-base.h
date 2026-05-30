@@ -16,20 +16,6 @@
 #ifndef __nonstring
 #define __nonstring
 #endif
-#ifndef static_assert
-#define static_assert _Static_assert
-#endif
-#ifndef offsetof
-#define offsetof(type, member) __builtin_offsetof(type, member)
-#endif
-#ifndef __struct_group
-#define __struct_group(TAG, NAME, ATTRS, MEMBERS...) \
-    union {                                          \
-        struct { MEMBERS } ATTRS;                    \
-        struct TAG { MEMBERS } ATTRS NAME;           \
-    } ATTRS
-#endif
-
 typedef __u16 sa_family_t;
 typedef __u8 u8;
 typedef __s16 s16;
