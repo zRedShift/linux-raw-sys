@@ -99,6 +99,8 @@ pub version: [crate::ctypes::c_char; 65usize],
 pub machine: [crate::ctypes::c_char; 65usize],
 pub domainname: [crate::ctypes::c_char; 65usize],
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const SI_LOAD_SHIFT: u32 = 16;
 pub const __OLD_UTS_LEN: u32 = 8;

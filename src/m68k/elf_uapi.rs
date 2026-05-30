@@ -83,7 +83,7 @@ pub struct Elf32_Dyn {
 pub d_tag: Elf32_Sword,
 pub d_un: Elf32_Dyn__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct Elf64_Dyn {
 pub d_tag: Elf64_Sxword,
@@ -95,7 +95,7 @@ pub struct elf32_rel {
 pub r_offset: Elf32_Addr,
 pub r_info: Elf32_Word,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct elf64_rel {
 pub r_offset: Elf64_Addr,
@@ -108,7 +108,7 @@ pub r_offset: Elf32_Addr,
 pub r_info: Elf32_Word,
 pub r_addend: Elf32_Sword,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct elf64_rela {
 pub r_offset: Elf64_Addr,
@@ -125,7 +125,7 @@ pub st_info: crate::ctypes::c_uchar,
 pub st_other: crate::ctypes::c_uchar,
 pub st_shndx: Elf32_Half,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct elf64_sym {
 pub st_name: Elf64_Word,
@@ -153,7 +153,7 @@ pub e_shentsize: Elf32_Half,
 pub e_shnum: Elf32_Half,
 pub e_shstrndx: Elf32_Half,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct elf64_hdr {
 pub e_ident: [crate::ctypes::c_uchar; 16usize],
@@ -183,7 +183,7 @@ pub p_memsz: Elf32_Word,
 pub p_flags: Elf32_Word,
 pub p_align: Elf32_Word,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct elf64_phdr {
 pub p_type: Elf64_Word,
@@ -209,7 +209,7 @@ pub sh_info: Elf32_Word,
 pub sh_addralign: Elf32_Word,
 pub sh_entsize: Elf32_Word,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct elf64_shdr {
 pub sh_name: Elf64_Word,
@@ -272,6 +272,8 @@ pub vda_name: Elf64_Word,
 pub vda_next: Elf64_Word,
 }
 pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const EM_NONE: u32 = 0;
 pub const EM_M32: u32 = 1;
 pub const EM_SPARC: u32 = 2;
@@ -644,7 +646,7 @@ pub union Elf32_Dyn__bindgen_ty_1 {
 pub d_val: Elf32_Sword,
 pub d_ptr: Elf32_Addr,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union Elf64_Dyn__bindgen_ty_1 {
 pub d_val: Elf64_Xword,

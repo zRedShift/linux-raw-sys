@@ -93,6 +93,9 @@ pub __reserved: [__u64; 8usize],
 }
 pub const LO_NAME_SIZE: u32 = 64;
 pub const LO_KEY_SIZE: u32 = 32;
+pub const LOOP_SET_STATUS_SETTABLE_FLAGS: u32 = 12;
+pub const LOOP_SET_STATUS_CLEARABLE_FLAGS: u32 = 4;
+pub const LOOP_CONFIGURE_SETTABLE_FLAGS: u32 = 29;
 pub const _MIPS_ISA_MIPS1: u32 = 1;
 pub const _MIPS_ISA_MIPS2: u32 = 2;
 pub const _MIPS_ISA_MIPS3: u32 = 3;

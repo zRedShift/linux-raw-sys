@@ -75,6 +75,8 @@ pub svm_cid: crate::ctypes::c_uint,
 pub svm_flags: __u8,
 pub svm_zero: [crate::ctypes::c_uchar; 115usize],
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
 pub const SOCK_RCVBUF_LOCK: u32 = 2;
@@ -91,6 +93,7 @@ pub const SO_VM_SOCKETS_TRUSTED: u32 = 5;
 pub const SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD: u32 = 6;
 pub const SO_VM_SOCKETS_NONBLOCK_TXRX: u32 = 7;
 pub const SO_VM_SOCKETS_CONNECT_TIMEOUT_NEW: u32 = 8;
+pub const SO_VM_SOCKETS_CONNECT_TIMEOUT: u32 = 6;
 pub const VMADDR_CID_ANY: i32 = -1;
 pub const VMADDR_PORT_ANY: i32 = -1;
 pub const VMADDR_CID_HYPERVISOR: u32 = 0;

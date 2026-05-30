@@ -643,9 +643,9 @@ pub struct snd_ctl_event__bindgen_ty_1__bindgen_ty_1 {
 pub mask: crate::ctypes::c_uint,
 pub id: snd_ctl_elem_id,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const INT_MAX: u32 = 2147483647;
 pub const INT_MIN: i32 = -2147483648;
-pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const __BIG_ENDIAN: u32 = 4321;
 pub const ITIMER_REAL: u32 = 0;
 pub const ITIMER_VIRTUAL: u32 = 1;

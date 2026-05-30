@@ -7,8 +7,8 @@
 /*
  * Linux m68k uses asm-generic/int-ll64.h, but GCC gives unsigned long long
  * 2-byte alignment while Clang's m68k target gives it 8-byte alignment. For
- * ioctl macro evaluation, define the UAPI integer typedefs with GCC-compatible
- * alignment before asm-generic/int-ll64.h is included.
+ * UAPI layout and ioctl macro evaluation, define the integer typedefs with
+ * GCC-compatible alignment before asm-generic/int-ll64.h is included.
  */
 #ifndef _ASM_GENERIC_INT_LL64_H
 #define _ASM_GENERIC_INT_LL64_H

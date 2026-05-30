@@ -2,7 +2,7 @@
 //! over the headers, for each supported architecture.
 
 use bindgen::{builder, EnumVariation};
-use std::collections::{BTreeSet, HashSet};
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
@@ -65,6 +65,7 @@ const NON_IOCTL_PREFIX: &[&str] = &[
     "ATMLEC_MSG_",
     "BLK_TA_",
     "BLK_TN_",
+    "EPOLL",
     "FD_DISK_",
     "FD_NEED_",
     "FD_VERIFY",
@@ -446,7 +447,7 @@ fn make_base_builder(
     header_name: &str,
     clang_target: &str,
 ) -> bindgen::Builder {
-    builder()
+    let mut builder = builder()
         .rustfmt_configuration_file(Some(Path::new("bindgen-rustfmt.toml").to_owned()))
         .layout_tests(false)
         .generate_comments(false)
@@ -470,7 +471,20 @@ fn make_base_builder(
         .blocklist_item("NULL")
         .use_core()
         .ctypes_prefix("crate::ctypes")
-        .header(header_name)
+        .header(header_name);
+
+    if clang_target.starts_with("m68k-") {
+        // GCC's Linux m68k ABI aligns plain __u64/__s64 to 2 bytes unless
+        // the UAPI uses explicit aligned types. Clang's m68k target reports
+        // larger unsigned long long alignment, so use a preinclude that
+        // preserves explicit __aligned_u64 while matching GCC for plain
+        // int-ll64 typedefs.
+        builder = builder
+            .clang_arg("-include")
+            .clang_arg("include/m68k-ioctl-abi.h");
+    }
+
+    builder
 }
 
 fn run_bindgen(
@@ -537,9 +551,7 @@ fn run_bindgen(
         // [1]: https://github.com/rust-lang/rust-bindgen/issues/3312
         builder = builder.blocklist_type("^s?size_t$");
     }
-    if matches!(mod_name, "bluetooth" | "sound") {
-        builder = builder.clang_macro_fallback();
-    }
+    builder = builder.clang_macro_fallback();
     if mod_name == "bluetooth" {
         builder = builder.blocklist_type("^sk_buff$");
     }
@@ -547,8 +559,12 @@ fn run_bindgen(
     let bindings = builder
         .generate()
         .unwrap_or_else(|_| panic!("generate bindings for {}", mod_name));
-    bindings
-        .write_to_file(mod_rs)
+    let mut bindings = bindings_to_string(&bindings);
+    if rust_arch == "m68k" {
+        bindings = fix_m68k_plain_u64_layout(&bindings);
+    }
+
+    fs::write(mod_rs, dedupe_generated_consts(&bindings))
         .unwrap_or_else(|_| panic!("write_to_file for {}", mod_name));
 }
 
@@ -556,22 +572,381 @@ fn make_ioctl_builder(
     linux_include: &str,
     header_name: &str,
     clang_target: &str,
-    rust_arch: &str,
+    _rust_arch: &str,
 ) -> bindgen::Builder {
-    let mut builder = make_base_builder(linux_include, header_name, clang_target);
+    make_base_builder(linux_include, header_name, clang_target)
+}
 
-    if rust_arch == "m68k" {
-        // GCC's Linux m68k ABI aligns __u64/__s64 to 2 bytes unless the UAPI
-        // uses explicit aligned types. Clang's m68k target reports 8-byte
-        // alignment for unsigned long long, which overstates _IO*()
-        // sizeof(struct ...) values. The ioctl module emits constants only
-        // after filtering, so limit this compatibility shim to ioctl probing.
-        builder = builder
-            .clang_arg("-include")
-            .clang_arg("include/m68k-ioctl-abi.h");
+fn bindings_to_string(bindings: &bindgen::Bindings) -> String {
+    let mut output = Vec::new();
+    bindings.write(Box::new(&mut output)).unwrap();
+    String::from_utf8(output).unwrap()
+}
+
+#[derive(Clone, Copy)]
+struct GeneratedConst {
+    line_index: usize,
+    enum_derived: bool,
+}
+
+fn dedupe_generated_consts(bindings: &str) -> String {
+    let lines = bindings.lines().collect::<Vec<_>>();
+    let mut consts_by_name: HashMap<String, Vec<GeneratedConst>> = HashMap::new();
+
+    for (line_index, line) in lines.iter().enumerate() {
+        let Some(name) = generated_const_name(line) else {
+            continue;
+        };
+        consts_by_name
+            .entry(name.to_owned())
+            .or_default()
+            .push(GeneratedConst {
+                line_index,
+                enum_derived: is_enum_derived_const(line, name),
+            });
     }
 
-    builder
+    let mut drop_indices = HashSet::new();
+    for consts in consts_by_name.into_values() {
+        if consts.len() <= 1 {
+            continue;
+        }
+
+        let keep_index = consts
+            .iter()
+            .find(|generated_const| generated_const.enum_derived)
+            .unwrap_or_else(|| consts.last().unwrap())
+            .line_index;
+        for generated_const in consts {
+            if generated_const.line_index != keep_index {
+                drop_indices.insert(generated_const.line_index);
+            }
+        }
+    }
+
+    let mut output = String::new();
+    for (line_index, line) in lines.iter().enumerate() {
+        if !drop_indices.contains(&line_index) {
+            output.push_str(line);
+            output.push('\n');
+        }
+    }
+    output
+}
+
+fn generated_const_name(line: &str) -> Option<&str> {
+    line.strip_prefix("pub const ")
+        .and_then(|rest| rest.split_once(':'))
+        .map(|(name, _rest)| name.trim())
+}
+
+fn is_enum_derived_const(line: &str, name: &str) -> bool {
+    if !line.contains(": _bindgen_ty_") {
+        return false;
+    }
+
+    line.split_once('=')
+        .map(|(_lhs, rhs)| rhs.trim().trim_end_matches(';').trim())
+        .and_then(|rhs| rhs.rsplit_once("::"))
+        .is_some_and(|(_enum_ty, variant)| variant == name)
+}
+
+#[derive(Debug)]
+struct GeneratedField {
+    ty: String,
+}
+
+#[derive(Debug)]
+struct GeneratedItem {
+    name: String,
+    item_index: usize,
+    repr_indices: Vec<usize>,
+    has_aligned_repr: bool,
+    fields: Vec<GeneratedField>,
+}
+
+fn fix_m68k_plain_u64_layout(bindings: &str) -> String {
+    let wide_aliases = parse_wide_aliases(bindings);
+    let items = parse_generated_items(bindings);
+    let pack_types = m68k_pack_types(&items, &wide_aliases);
+    apply_m68k_packed_repr(bindings, &items, &pack_types)
+}
+
+fn parse_wide_aliases(bindings: &str) -> HashSet<String> {
+    let mut aliases = HashMap::new();
+    for line in bindings.lines() {
+        let line = line.trim();
+        if let Some(rest) = line.strip_prefix("pub type ") {
+            let Some((name, ty)) = rest.split_once('=') else {
+                continue;
+            };
+            aliases.insert(
+                name.trim().to_owned(),
+                ty.trim().trim_end_matches(';').trim().to_owned(),
+            );
+        }
+    }
+
+    let mut wide = HashSet::from([
+        "i64".to_owned(),
+        "u64".to_owned(),
+        "crate::ctypes::c_longlong".to_owned(),
+        "crate::ctypes::c_ulonglong".to_owned(),
+    ]);
+
+    loop {
+        let mut changed = false;
+        for (name, ty) in &aliases {
+            if wide.contains(name) {
+                continue;
+            }
+            if type_is_wide_scalar(ty, &wide) {
+                changed |= wide.insert(name.clone());
+            }
+        }
+        if !changed {
+            break;
+        }
+    }
+
+    wide
+}
+
+fn parse_generated_items(bindings: &str) -> Vec<GeneratedItem> {
+    let lines = bindings.lines().collect::<Vec<_>>();
+    let mut items = Vec::new();
+    let mut i = 0;
+
+    while i < lines.len() {
+        let line = lines[i].trim();
+        let item = if let Some(name) = parse_item_name(line, "pub struct ") {
+            Some(name)
+        } else {
+            parse_item_name(line, "pub union ")
+        };
+
+        let Some(name) = item else {
+            i += 1;
+            continue;
+        };
+
+        let item_index = i;
+        let repr_indices = preceding_repr_indices(&lines, i);
+        let has_aligned_repr = repr_indices.iter().any(|idx| lines[*idx].contains("align"));
+        let mut fields = Vec::new();
+        let mut depth = brace_delta(lines[i]);
+        i += 1;
+        while i < lines.len() && depth > 0 {
+            if let Some(field) = parse_generated_field(lines[i]) {
+                fields.push(field);
+            }
+            depth += brace_delta(lines[i]);
+            i += 1;
+        }
+
+        items.push(GeneratedItem {
+            name,
+            item_index,
+            repr_indices,
+            has_aligned_repr,
+            fields,
+        });
+    }
+
+    items
+}
+
+fn parse_item_name(line: &str, prefix: &str) -> Option<String> {
+    line.strip_prefix(prefix)
+        .and_then(|rest| rest.split_whitespace().next())
+        .map(|name| name.trim_end_matches('{').to_owned())
+}
+
+fn preceding_repr_indices(lines: &[&str], item_index: usize) -> Vec<usize> {
+    let mut indices = Vec::new();
+    let mut i = item_index;
+    while let Some(prev) = i.checked_sub(1) {
+        let line = lines[prev].trim();
+        if line.starts_with("#[") {
+            if line.starts_with("#[repr(") {
+                indices.push(prev);
+            }
+            i = prev;
+        } else {
+            break;
+        }
+    }
+    indices.reverse();
+    indices
+}
+
+fn brace_delta(line: &str) -> isize {
+    line.chars().filter(|c| *c == '{').count() as isize
+        - line.chars().filter(|c| *c == '}').count() as isize
+}
+
+fn parse_generated_field(line: &str) -> Option<GeneratedField> {
+    let line = line.trim();
+    let rest = line.strip_prefix("pub ")?;
+    let (_name, ty) = rest.split_once(':')?;
+    Some(GeneratedField {
+        ty: ty.trim().trim_end_matches(',').to_owned(),
+    })
+}
+
+fn m68k_pack_types(items: &[GeneratedItem], wide_aliases: &HashSet<String>) -> HashSet<String> {
+    let mut pack_types = HashSet::new();
+
+    for item in items {
+        if item.has_aligned_repr {
+            continue;
+        }
+
+        let has_wide_field = item
+            .fields
+            .iter()
+            .any(|field| type_is_wide_scalar(&field.ty, wide_aliases));
+        if !has_wide_field {
+            continue;
+        }
+
+        pack_types.insert(item.name.clone());
+    }
+
+    pack_types
+}
+
+fn type_is_wide_scalar(ty: &str, wide_aliases: &HashSet<String>) -> bool {
+    let ty = ty.trim();
+    if ty.starts_with('*') {
+        return false;
+    }
+    if let Some(rest) = ty.strip_prefix('[') {
+        if let Some((element, _len)) = rest.split_once(';') {
+            return type_is_wide_scalar(element.trim(), wide_aliases);
+        }
+    }
+    if let Some(inner) = generic_argument(ty, "__IncompleteArrayField") {
+        return type_is_wide_scalar(inner, wide_aliases);
+    }
+    if ty.starts_with("__BindgenBitfieldUnit")
+        || ty.starts_with("__BindgenUnionField")
+        || ty.starts_with("::core::marker::PhantomData")
+    {
+        return false;
+    }
+
+    wide_aliases.contains(ty)
+}
+
+fn generic_argument<'a>(ty: &'a str, wrapper: &str) -> Option<&'a str> {
+    ty.strip_prefix(wrapper)?
+        .trim_start()
+        .strip_prefix('<')?
+        .trim_end()
+        .strip_suffix('>')
+        .map(str::trim)
+}
+
+fn apply_m68k_packed_repr(
+    bindings: &str,
+    items: &[GeneratedItem],
+    pack_types: &HashSet<String>,
+) -> String {
+    let mut lines = bindings.lines().map(str::to_owned).collect::<Vec<_>>();
+    let mut drop_indices = HashSet::new();
+
+    for item in items {
+        if !pack_types.contains(&item.name) {
+            continue;
+        }
+        if item
+            .repr_indices
+            .iter()
+            .any(|idx| lines[*idx].contains("align"))
+        {
+            panic!(
+                "m68k layout for {} needs packed(2), but bindgen emitted an aligned repr",
+                item.name
+            );
+        }
+        let Some(c_repr_idx) = item
+            .repr_indices
+            .iter()
+            .copied()
+            .find(|idx| lines[*idx].contains("repr(C"))
+        else {
+            panic!(
+                "m68k layout for {} needs packed(2) without repr(C)",
+                item.name
+            );
+        };
+        if lines[c_repr_idx].contains("packed") {
+            continue;
+        }
+
+        let indent_len = lines[c_repr_idx].len() - lines[c_repr_idx].trim_start().len();
+        let indent = " ".repeat(indent_len);
+        lines[c_repr_idx] = format!("{indent}#[repr(C, packed(2))]");
+        if item
+            .fields
+            .iter()
+            .any(|field| generic_argument(&field.ty, "__IncompleteArrayField").is_some())
+        {
+            remove_debug_derives(&mut lines, &mut drop_indices, item.item_index);
+        }
+    }
+
+    let mut output = String::new();
+    for (line_index, line) in lines.iter().enumerate() {
+        if !drop_indices.contains(&line_index) {
+            output.push_str(line);
+            output.push('\n');
+        }
+    }
+    output
+}
+
+fn remove_debug_derives(
+    lines: &mut [String],
+    drop_indices: &mut HashSet<usize>,
+    item_index: usize,
+) {
+    let mut i = item_index;
+    while let Some(prev) = i.checked_sub(1) {
+        let line = lines[prev].trim();
+        if !line.starts_with("#[") {
+            break;
+        }
+        if line.starts_with("#[derive(") {
+            if let Some(line) = remove_debug_from_derive_line(&lines[prev]) {
+                lines[prev] = line;
+            } else {
+                drop_indices.insert(prev);
+            }
+        }
+        i = prev;
+    }
+}
+
+fn remove_debug_from_derive_line(line: &str) -> Option<String> {
+    let Some((prefix, rest)) = line.split_once("#[derive(") else {
+        return Some(line.to_owned());
+    };
+    let Some(inner) = rest.strip_suffix(")]") else {
+        return Some(line.to_owned());
+    };
+
+    let derives = inner
+        .split(',')
+        .map(str::trim)
+        .filter(|derive| *derive != "Debug")
+        .collect::<Vec<_>>();
+    if derives.is_empty() {
+        None
+    } else {
+        Some(format!("{prefix}#[derive({})]", derives.join(", ")))
+    }
 }
 
 /// Extract all `pub const` names from a generated .rs file.

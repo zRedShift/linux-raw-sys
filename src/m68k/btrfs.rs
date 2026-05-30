@@ -79,7 +79,7 @@ pub log2_data_unit_size: __u8,
 pub __reserved: [__u8; 3usize],
 pub master_key_identifier: [__u8; 16usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct fscrypt_get_policy_ex_arg {
 pub policy_size: __u64,
@@ -125,7 +125,7 @@ pub status_flags: __u32,
 pub user_count: __u32,
 pub __out_reserved: [__u32; 13usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct mount_attr {
 pub attr_set: __u64,
@@ -133,8 +133,7 @@ pub attr_clr: __u64,
 pub propagation: __u64,
 pub userns_fd: __u64,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct statmount {
 pub size: __u32,
 pub mnt_opts: __u32,
@@ -170,7 +169,7 @@ pub mnt_gidmap: __u32,
 pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
@@ -179,7 +178,7 @@ pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_clone_range {
 pub src_fd: __s64,
@@ -187,7 +186,7 @@ pub src_offset: __u64,
 pub src_length: __u64,
 pub dest_offset: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct fstrim_range {
 pub start: __u64,
@@ -222,7 +221,7 @@ pub lbmd_ref_tag_size: __u8,
 pub lbmd_storage_tag_size: __u8,
 pub pad: __u8,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_dedupe_range_info {
 pub dest_fd: __s64,
@@ -231,8 +230,7 @@ pub bytes_deduped: __u64,
 pub status: __s32,
 pub reserved: __u32,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct file_dedupe_range {
 pub src_offset: __u64,
 pub src_length: __u64,
@@ -265,7 +263,7 @@ pub fsx_projid: __u32,
 pub fsx_cowextsize: __u32,
 pub fsx_pad: [crate::ctypes::c_uchar; 8usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_attr {
 pub fa_xflags: __u64,
@@ -274,14 +272,14 @@ pub fa_nextents: __u32,
 pub fa_projid: __u32,
 pub fa_cowextsize: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct page_region {
 pub start: __u64,
 pub end: __u64,
 pub categories: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct pm_scan_arg {
 pub size: __u64,
@@ -297,7 +295,7 @@ pub category_mask: __u64,
 pub category_anyof_mask: __u64,
 pub return_mask: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct procmap_query {
 pub size: __u64,
@@ -316,13 +314,13 @@ pub build_id_size: __u32,
 pub vma_name_addr: __u64,
 pub build_id_addr: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_vol_args {
 pub fd: __s64,
 pub name: [crate::ctypes::c_char; 4088usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_qgroup_limit {
 pub flags: __u64,
@@ -331,8 +329,7 @@ pub max_excl: __u64,
 pub rsv_rfer: __u64,
 pub rsv_excl: __u64,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct btrfs_qgroup_inherit {
 pub flags: __u64,
 pub num_qgroups: __u64,
@@ -341,13 +338,13 @@ pub num_excl_copies: __u64,
 pub lim: btrfs_qgroup_limit,
 pub qgroups: __IncompleteArrayField<__u64>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_qgroup_limit_args {
 pub qgroupid: __u64,
 pub lim: btrfs_qgroup_limit,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct btrfs_ioctl_vol_args_v2 {
 pub fd: __s64,
@@ -356,13 +353,13 @@ pub flags: __u64,
 pub __bindgen_anon_1: btrfs_ioctl_vol_args_v2__bindgen_ty_1,
 pub __bindgen_anon_2: btrfs_ioctl_vol_args_v2__bindgen_ty_2,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_vol_args_v2__bindgen_ty_1__bindgen_ty_1 {
 pub size: __u64,
 pub qgroup_inherit: *mut btrfs_qgroup_inherit,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_scrub_progress {
 pub data_extents_scrubbed: __u64,
@@ -381,7 +378,7 @@ pub corrected_errors: __u64,
 pub last_physical: __u64,
 pub unverified_errors: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_scrub_args {
 pub devid: __u64,
@@ -391,7 +388,7 @@ pub flags: __u64,
 pub progress: btrfs_scrub_progress,
 pub unused: [__u64; 109usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_dev_replace_start_params {
 pub srcdevid: __u64,
@@ -399,7 +396,7 @@ pub cont_reading_from_srcdev_mode: __u64,
 pub srcdev_name: [__u8; 1025usize],
 pub tgtdev_name: [__u8; 1025usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_dev_replace_status_params {
 pub replace_state: __u64,
@@ -409,7 +406,7 @@ pub time_stopped: __u64,
 pub num_write_errors: __u64,
 pub num_uncorrectable_read_errors: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct btrfs_ioctl_dev_replace_args {
 pub cmd: __u64,
@@ -417,7 +414,7 @@ pub result: __u64,
 pub __bindgen_anon_1: btrfs_ioctl_dev_replace_args__bindgen_ty_1,
 pub spare: [__u64; 64usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_dev_info_args {
 pub devid: __u64,
@@ -428,7 +425,7 @@ pub fsid: [__u8; 16usize],
 pub unused: [__u64; 377usize],
 pub path: [__u8; 1024usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_fs_info_args {
 pub max_id: __u64,
@@ -444,7 +441,7 @@ pub generation: __u64,
 pub metadata_uuid: [__u8; 16usize],
 pub reserved: [__u8; 944usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_feature_flags {
 pub compat_flags: __u64,
@@ -480,14 +477,14 @@ pub struct btrfs_balance_args__bindgen_ty_2__bindgen_ty_1 {
 pub limit_min: __u32,
 pub limit_max: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_balance_progress {
 pub expected: __u64,
 pub considered: __u64,
 pub completed: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct btrfs_ioctl_balance_args {
 pub flags: __u64,
@@ -498,14 +495,14 @@ pub sys: btrfs_balance_args,
 pub stat: btrfs_balance_progress,
 pub unused: [__u64; 72usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_ino_lookup_args {
 pub treeid: __u64,
 pub objectid: __u64,
 pub name: [crate::ctypes::c_char; 4080usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_ino_lookup_user_args {
 pub dirid: __u64,
@@ -513,7 +510,7 @@ pub treeid: __u64,
 pub name: [crate::ctypes::c_char; 256usize],
 pub path: [crate::ctypes::c_char; 3824usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_search_key {
 pub tree_id: __u64,
@@ -532,7 +529,7 @@ pub unused2: __u64,
 pub unused3: __u64,
 pub unused4: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_search_header {
 pub transid: __u64,
@@ -547,14 +544,13 @@ pub struct btrfs_ioctl_search_args {
 pub key: btrfs_ioctl_search_key,
 pub buf: [crate::ctypes::c_char; 3992usize],
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct btrfs_ioctl_search_args_v2 {
 pub key: btrfs_ioctl_search_key,
 pub buf_size: __u64,
 pub buf: __IncompleteArrayField<__u64>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_clone_range_args {
 pub src_fd: __s64,
@@ -562,7 +558,7 @@ pub src_offset: __u64,
 pub src_length: __u64,
 pub dest_offset: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct btrfs_ioctl_defrag_range_args {
 pub start: __u64,
@@ -578,7 +574,7 @@ pub struct btrfs_ioctl_defrag_range_args__bindgen_ty_1__bindgen_ty_1 {
 pub type_: __u8,
 pub level: __s8,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_same_extent_info {
 pub fd: __s64,
@@ -587,8 +583,7 @@ pub bytes_deduped: __u64,
 pub status: __s32,
 pub reserved: __u32,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct btrfs_ioctl_same_args {
 pub logical_offset: __u64,
 pub length: __u64,
@@ -597,22 +592,20 @@ pub reserved1: __u16,
 pub reserved2: __u32,
 pub info: __IncompleteArrayField<btrfs_ioctl_same_extent_info>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_space_info {
 pub flags: __u64,
 pub total_bytes: __u64,
 pub used_bytes: __u64,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct btrfs_ioctl_space_args {
 pub space_slots: __u64,
 pub total_spaces: __u64,
 pub spaces: __IncompleteArrayField<btrfs_ioctl_space_info>,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct btrfs_data_container {
 pub bytes_left: __u32,
 pub bytes_missing: __u32,
@@ -620,7 +613,7 @@ pub elem_cnt: __u32,
 pub elem_missed: __u32,
 pub val: __IncompleteArrayField<__u64>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_ino_path_args {
 pub inum: __u64,
@@ -628,7 +621,7 @@ pub size: __u64,
 pub reserved: [__u64; 4usize],
 pub fspath: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_logical_ino_args {
 pub logical: __u64,
@@ -637,7 +630,7 @@ pub reserved: [__u64; 3usize],
 pub flags: __u64,
 pub inodes: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_get_dev_stats {
 pub devid: __u64,
@@ -646,39 +639,39 @@ pub flags: __u64,
 pub values: [__u64; 5usize],
 pub unused: [__u64; 121usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_quota_ctl_args {
 pub cmd: __u64,
 pub status: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_quota_rescan_args {
 pub flags: __u64,
 pub progress: __u64,
 pub reserved: [__u64; 6usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_qgroup_assign_args {
 pub assign: __u64,
 pub src: __u64,
 pub dst: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_qgroup_create_args {
 pub create: __u64,
 pub qgroupid: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_timespec {
 pub sec: __u64,
 pub nsec: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_received_subvol_args {
 pub uuid: [crate::ctypes::c_char; 16usize],
@@ -689,7 +682,7 @@ pub rtime: btrfs_ioctl_timespec,
 pub flags: __u64,
 pub reserved: [__u64; 16usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_send_args {
 pub send_fd: __s64,
@@ -700,7 +693,7 @@ pub flags: __u64,
 pub version: __u32,
 pub reserved: [__u8; 28usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_get_subvol_info_args {
 pub treeid: __u64,
@@ -722,7 +715,7 @@ pub stime: btrfs_ioctl_timespec,
 pub rtime: btrfs_ioctl_timespec,
 pub reserved: [__u64; 8usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_get_subvol_rootref_args {
 pub min_treeid: __u64,
@@ -730,13 +723,13 @@ pub rootref: [btrfs_ioctl_get_subvol_rootref_args__bindgen_ty_1; 255usize],
 pub num_items: __u8,
 pub align: [__u8; 7usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_get_subvol_rootref_args__bindgen_ty_1 {
 pub treeid: __u64,
 pub dirid: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_encoded_io_args {
 pub iov: *const iovec,
@@ -750,7 +743,7 @@ pub compression: __u32,
 pub encryption: __u32,
 pub reserved: [__u8; 64usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct btrfs_ioctl_subvol_wait {
 pub subvolid: __u64,
@@ -1468,6 +1461,15 @@ pub const SYNC_FILE_RANGE_WAIT_BEFORE: u32 = 1;
 pub const SYNC_FILE_RANGE_WRITE: u32 = 2;
 pub const SYNC_FILE_RANGE_WAIT_AFTER: u32 = 4;
 pub const SYNC_FILE_RANGE_WRITE_AND_WAIT: u32 = 7;
+pub const RWF_HIPRI: u32 = 1;
+pub const RWF_DSYNC: u32 = 2;
+pub const RWF_SYNC: u32 = 4;
+pub const RWF_NOWAIT: u32 = 8;
+pub const RWF_APPEND: u32 = 16;
+pub const RWF_NOAPPEND: u32 = 32;
+pub const RWF_ATOMIC: u32 = 64;
+pub const RWF_DONTCACHE: u32 = 128;
+pub const RWF_SUPPORTED: u32 = 255;
 pub const PROCFS_IOCTL_MAGIC: u8 = 102u8;
 pub const PAGE_IS_WPALLOWED: u32 = 1;
 pub const PAGE_IS_WRITTEN: u32 = 2;
@@ -1570,6 +1572,7 @@ pub const BTRFS_BALANCE_STATE_PAUSE_REQ: u32 = 2;
 pub const BTRFS_BALANCE_STATE_CANCEL_REQ: u32 = 4;
 pub const BTRFS_INO_LOOKUP_PATH_MAX: u32 = 4080;
 pub const BTRFS_INO_LOOKUP_USER_PATH_MAX: u32 = 3824;
+pub const BTRFS_SEARCH_ARGS_BUFSIZE: u32 = 3992;
 pub const BTRFS_DEFRAG_RANGE_COMPRESS: u32 = 1;
 pub const BTRFS_DEFRAG_RANGE_START_IO: u32 = 2;
 pub const BTRFS_DEFRAG_RANGE_COMPRESS_LEVEL: u32 = 4;
@@ -1749,6 +1752,7 @@ pub const BTRFS_BLOCK_GROUP_RAID5: u32 = 128;
 pub const BTRFS_BLOCK_GROUP_RAID6: u32 = 256;
 pub const BTRFS_BLOCK_GROUP_RAID1C3: u32 = 512;
 pub const BTRFS_BLOCK_GROUP_RAID1C4: u32 = 1024;
+pub const BTRFS_BLOCK_GROUP_RESERVED: u64 = 844424930131968;
 pub const BTRFS_BLOCK_GROUP_TYPE_MASK: u32 = 7;
 pub const BTRFS_BLOCK_GROUP_PROFILE_MASK: u32 = 2040;
 pub const BTRFS_BLOCK_GROUP_RAID56_MASK: u32 = 384;
@@ -1857,13 +1861,13 @@ pub __reserved: [__u8; 32usize],
 pub descriptor: [__u8; 8usize],
 pub identifier: [__u8; 16usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union btrfs_ioctl_vol_args_v2__bindgen_ty_1 {
 pub __bindgen_anon_1: btrfs_ioctl_vol_args_v2__bindgen_ty_1__bindgen_ty_1,
 pub unused: [__u64; 4usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union btrfs_ioctl_vol_args_v2__bindgen_ty_2 {
 pub name: [crate::ctypes::c_char; 4040usize],
@@ -1876,13 +1880,13 @@ pub union btrfs_ioctl_dev_replace_args__bindgen_ty_1 {
 pub start: btrfs_ioctl_dev_replace_start_params,
 pub status: btrfs_ioctl_dev_replace_status_params,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union btrfs_balance_args__bindgen_ty_1 {
 pub usage: __u64,
 pub __bindgen_anon_1: btrfs_balance_args__bindgen_ty_1__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union btrfs_balance_args__bindgen_ty_2 {
 pub limit: __u64,
@@ -1894,13 +1898,13 @@ pub union btrfs_ioctl_defrag_range_args__bindgen_ty_1 {
 pub compress_type: __u32,
 pub compress: btrfs_ioctl_defrag_range_args__bindgen_ty_1__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union btrfs_disk_balance_args__bindgen_ty_1 {
 pub usage: __le64,
 pub __bindgen_anon_1: btrfs_disk_balance_args__bindgen_ty_1__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub union btrfs_disk_balance_args__bindgen_ty_2 {
 pub limit: __le64,

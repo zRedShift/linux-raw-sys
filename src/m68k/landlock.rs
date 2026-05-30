@@ -48,7 +48,7 @@ pub type __be64 = __u64;
 pub type __sum16 = __u16;
 pub type __wsum = __u32;
 pub type __poll_t = crate::ctypes::c_uint;
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct landlock_ruleset_attr {
 pub handled_access_fs: __u64,
@@ -61,7 +61,7 @@ pub struct landlock_path_beneath_attr {
 pub allowed_access: __u64,
 pub parent_fd: __s32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct landlock_net_port_attr {
 pub allowed_access: __u64,

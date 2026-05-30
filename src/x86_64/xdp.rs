@@ -155,6 +155,8 @@ pub rx_dropped: __u64,
 pub rx_invalid_descs: __u64,
 pub tx_invalid_descs: __u64,
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const XDP_SHARED_UMEM: u32 = 1;
 pub const XDP_COPY: u32 = 2;

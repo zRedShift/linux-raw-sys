@@ -239,7 +239,7 @@ pub subtype: __u8,
 pub flags: __u8,
 pub block_offset: __be16,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct ip_iptfs_cc_hdr {
 pub subtype: __u8,
@@ -386,7 +386,7 @@ pub max_window: __u32,
 pub rcv_wnd: __u32,
 pub rcv_wup: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct tcp_info {
 pub tcpi_state: __u8,
@@ -503,6 +503,7 @@ pub rnext: __u8,
 pub keyflags: __u8,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct tcp_ao_info_opt {
 pub _bitfield_align_1: [u32; 0],
@@ -517,6 +518,7 @@ pub pkt_ao_required: __u64,
 pub pkt_dropped_icmp: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Copy, Clone)]
 pub struct tcp_ao_getsockopt {
 pub addr: __kernel_sockaddr_storage,
@@ -544,7 +546,7 @@ pub rcv_isn: __be32,
 pub snd_sne: __u32,
 pub rcv_sne: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct tcp_zerocopy_receive {
 pub address: __u64,
@@ -711,7 +713,7 @@ pub struct xt_get_revision {
 pub name: [crate::ctypes::c_char; 29usize],
 pub revision: __u8,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct _xt_align {
 pub u8_: __u8,
@@ -719,7 +721,7 @@ pub u16_: __u16,
 pub u32_: __u32,
 pub u64_: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct xt_counters {
 pub pcnt: __u64,
@@ -899,6 +901,8 @@ pub struct iovec {
 pub _address: u8,
 }
 pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
 pub const SOCK_RCVBUF_LOCK: u32 = 2;
@@ -980,6 +984,10 @@ pub const IN_CLASSC_HOST: u32 = 255;
 pub const IN_MULTICAST_NET: u32 = 3758096384;
 pub const IN_CLASSE_NET: u32 = 4294967295;
 pub const IN_CLASSE_NSHIFT: u32 = 0;
+pub const INADDR_ANY: u32 = 0;
+pub const INADDR_BROADCAST: u32 = 4294967295;
+pub const INADDR_NONE: u32 = 4294967295;
+pub const INADDR_DUMMY: u32 = 3221225480;
 pub const IN_LOOPBACKNET: u32 = 127;
 pub const INADDR_LOOPBACK: u32 = 2130706433;
 pub const INADDR_UNSPEC_GROUP: u32 = 3758096384;
@@ -1034,6 +1042,7 @@ pub const IPOPT_TS_TSONLY: u32 = 0;
 pub const IPOPT_TS_TSANDADDR: u32 = 1;
 pub const IPOPT_TS_PRESPEC: u32 = 3;
 pub const IPV4_BEET_PHMAXLEN: u32 = 8;
+pub const IPV4_DEVCONF_MAX: u32 = 33;
 pub const IPV6_FL_A_GET: u32 = 0;
 pub const IPV6_FL_A_PUT: u32 = 1;
 pub const IPV6_FL_A_RENEW: u32 = 2;
@@ -1247,6 +1256,15 @@ pub const SO_RCVPRIORITY: u32 = 82;
 pub const SO_PASSRIGHTS: u32 = 83;
 pub const SO_INQ: u32 = 84;
 pub const SCM_INQ: u32 = 84;
+pub const SO_TIMESTAMP: u32 = 29;
+pub const SO_TIMESTAMPNS: u32 = 35;
+pub const SO_TIMESTAMPING: u32 = 37;
+pub const SO_RCVTIMEO: u32 = 20;
+pub const SO_SNDTIMEO: u32 = 21;
+pub const SCM_TIMESTAMP: u32 = 29;
+pub const SCM_TIMESTAMPNS: u32 = 35;
+pub const SCM_TIMESTAMPING: u32 = 37;
+pub const NPROTO: u32 = 46;
 pub const SYS_SOCKET: u32 = 1;
 pub const SYS_BIND: u32 = 2;
 pub const SYS_CONNECT: u32 = 3;
@@ -1327,6 +1345,11 @@ pub const TCPI_OPT_ECN_SEEN: u32 = 16;
 pub const TCPI_OPT_SYN_DATA: u32 = 32;
 pub const TCPI_OPT_USEC_TS: u32 = 64;
 pub const TCPI_OPT_TFO_CHILD: u32 = 128;
+pub const TCPF_CA_Open: u32 = 1;
+pub const TCPF_CA_Disorder: u32 = 2;
+pub const TCPF_CA_CWR: u32 = 4;
+pub const TCPF_CA_Recovery: u32 = 8;
+pub const TCPF_CA_Loss: u32 = 16;
 pub const TCP_MD5SIG_MAXKEYLEN: u32 = 80;
 pub const TCP_MD5SIG_FLAG_PREFIX: u32 = 1;
 pub const TCP_MD5SIG_FLAG_IFINDEX: u32 = 2;
@@ -1363,6 +1386,26 @@ pub const LMI_NONE: u32 = 1;
 pub const LMI_ANSI: u32 = 2;
 pub const LMI_CCITT: u32 = 3;
 pub const LMI_CISCO: u32 = 4;
+pub const IFF_UP: u32 = 1;
+pub const IFF_BROADCAST: u32 = 2;
+pub const IFF_DEBUG: u32 = 4;
+pub const IFF_LOOPBACK: u32 = 8;
+pub const IFF_POINTOPOINT: u32 = 16;
+pub const IFF_NOTRAILERS: u32 = 32;
+pub const IFF_RUNNING: u32 = 64;
+pub const IFF_NOARP: u32 = 128;
+pub const IFF_PROMISC: u32 = 256;
+pub const IFF_ALLMULTI: u32 = 512;
+pub const IFF_MASTER: u32 = 1024;
+pub const IFF_SLAVE: u32 = 2048;
+pub const IFF_MULTICAST: u32 = 4096;
+pub const IFF_PORTSEL: u32 = 8192;
+pub const IFF_AUTOMEDIA: u32 = 16384;
+pub const IFF_DYNAMIC: u32 = 32768;
+pub const IFF_LOWER_UP: u32 = 65536;
+pub const IFF_DORMANT: u32 = 131072;
+pub const IFF_ECHO: u32 = 262144;
+pub const IFF_VOLATILE: u32 = 461914;
 pub const IF_GET_IFACE: u32 = 1;
 pub const IF_GET_PROTO: u32 = 2;
 pub const IF_IFACE_V35: u32 = 4096;
@@ -1464,6 +1507,8 @@ pub const NF_IP_LOCAL_OUT: u32 = 3;
 pub const NF_IP_POST_ROUTING: u32 = 4;
 pub const NF_IP_NUMHOOKS: u32 = 5;
 pub const SO_ORIGINAL_DST: u32 = 80;
+pub const SOF_TIMESTAMPING_TX_RECORD_MASK: u32 = 262915;
+pub const HWTSTAMP_FLAG_BONDED_PHC_INDEX: u32 = 1;
 pub const SHUT_RD: u32 = 0;
 pub const SHUT_WR: u32 = 1;
 pub const SHUT_RDWR: u32 = 2;

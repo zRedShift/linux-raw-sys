@@ -3417,9 +3417,9 @@ pub eir: __IncompleteArrayField<__u8>,
 pub struct mgmt_ev_mesh_pkt_cmplt {
 pub handle: __u8,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const INT_MAX: u32 = 2147483647;
 pub const INT_MIN: i32 = -2147483648;
-pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const _IOC_NRBITS: u32 = 8;
 pub const _IOC_TYPEBITS: u32 = 8;
 pub const _IOC_SIZEBITS: u32 = 14;

@@ -136,7 +136,7 @@ pub l_start: __kernel_off_t,
 pub l_len: __kernel_off_t,
 pub l_pid: __kernel_pid_t,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct flock64 {
 pub l_type: crate::ctypes::c_short,
@@ -145,14 +145,14 @@ pub l_start: __kernel_loff_t,
 pub l_len: __kernel_loff_t,
 pub l_pid: __kernel_pid_t,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct open_how {
 pub flags: __u64,
 pub mode: __u64,
 pub resolve: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct epoll_event {
 pub events: __poll_t,
@@ -193,7 +193,7 @@ pub log2_data_unit_size: __u8,
 pub __reserved: [__u8; 3usize],
 pub master_key_identifier: [__u8; 16usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct fscrypt_get_policy_ex_arg {
 pub policy_size: __u64,
@@ -239,7 +239,7 @@ pub status_flags: __u32,
 pub user_count: __u32,
 pub __out_reserved: [__u32; 13usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct mount_attr {
 pub attr_set: __u64,
@@ -247,8 +247,7 @@ pub attr_clr: __u64,
 pub propagation: __u64,
 pub userns_fd: __u64,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct statmount {
 pub size: __u32,
 pub mnt_opts: __u32,
@@ -284,7 +283,7 @@ pub mnt_gidmap: __u32,
 pub __spare2: [__u64; 43usize],
 pub str_: __IncompleteArrayField<crate::ctypes::c_char>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct mnt_id_req {
 pub size: __u32,
@@ -293,7 +292,7 @@ pub mnt_id: __u64,
 pub param: __u64,
 pub mnt_ns_id: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_clone_range {
 pub src_fd: __s64,
@@ -301,7 +300,7 @@ pub src_offset: __u64,
 pub src_length: __u64,
 pub dest_offset: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct fstrim_range {
 pub start: __u64,
@@ -336,7 +335,7 @@ pub lbmd_ref_tag_size: __u8,
 pub lbmd_storage_tag_size: __u8,
 pub pad: __u8,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_dedupe_range_info {
 pub dest_fd: __s64,
@@ -345,8 +344,7 @@ pub bytes_deduped: __u64,
 pub status: __s32,
 pub reserved: __u32,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct file_dedupe_range {
 pub src_offset: __u64,
 pub src_length: __u64,
@@ -379,7 +377,7 @@ pub fsx_projid: __u32,
 pub fsx_cowextsize: __u32,
 pub fsx_pad: [crate::ctypes::c_uchar; 8usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct file_attr {
 pub fa_xflags: __u64,
@@ -388,14 +386,14 @@ pub fa_nextents: __u32,
 pub fa_projid: __u32,
 pub fa_cowextsize: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct page_region {
 pub start: __u64,
 pub end: __u64,
 pub categories: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct pm_scan_arg {
 pub size: __u64,
@@ -411,7 +409,7 @@ pub category_mask: __u64,
 pub category_anyof_mask: __u64,
 pub return_mask: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct procmap_query {
 pub size: __u64,
@@ -430,7 +428,7 @@ pub build_id_size: __u32,
 pub vma_name_addr: __u64,
 pub build_id_addr: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct futex_waitv {
 pub val: __u64,
@@ -459,13 +457,13 @@ pub cookie: __u32,
 pub len: __u32,
 pub name: __IncompleteArrayField<crate::ctypes::c_char>,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct cachestat_range {
 pub off: __u64,
 pub len: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct cachestat {
 pub nr_cache: __u64,
@@ -496,7 +494,7 @@ pub mmap_prot: __u32,
 pub mmap_flags: __u32,
 pub reserved: [__u32; 13usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_timespec {
 pub tv_sec: __kernel_time64_t,
@@ -526,7 +524,7 @@ pub struct __kernel_old_itimerval {
 pub it_interval: __kernel_old_timeval,
 pub it_value: __kernel_old_timeval,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_sock_timeval {
 pub tv_sec: __s64,
@@ -558,13 +556,14 @@ pub struct rlimit {
 pub rlim_cur: __kernel_ulong_t,
 pub rlim_max: __kernel_ulong_t,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct rlimit64 {
 pub rlim_cur: __u64,
 pub rlim_max: __u64,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct clone_args {
 pub flags: __u64,
@@ -690,14 +689,14 @@ pub struct sigevent__bindgen_ty_1__bindgen_ty_1 {
 pub _function: ::core::option::Option<unsafe extern "C" fn(arg1: sigval_t)>,
 pub _attribute: *mut crate::ctypes::c_void,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct statx_timestamp {
 pub tv_sec: __s64,
 pub tv_nsec: __u32,
 pub __reserved: __s32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct statx {
 pub stx_mask: __u32,
@@ -820,7 +819,7 @@ pub struct iovec {
 pub iov_base: *mut crate::ctypes::c_void,
 pub iov_len: __kernel_size_t,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct dmabuf_cmsg {
 pub frag_offset: __u64,
@@ -836,6 +835,7 @@ pub token_start: __u32,
 pub token_count: __u32,
 }
 #[repr(C)]
+#[repr(align(8))]
 #[derive(Debug, Copy, Clone)]
 pub struct xattr_args {
 pub value: __u64,
@@ -851,7 +851,7 @@ pub reserved2: __u16,
 pub reserved3: __u32,
 pub arg: uffd_msg__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct uffd_msg__bindgen_ty_1__bindgen_ty_1 {
 pub flags: __u64,
@@ -863,47 +863,47 @@ pub feat: uffd_msg__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
 pub struct uffd_msg__bindgen_ty_1__bindgen_ty_2 {
 pub ufd: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffd_msg__bindgen_ty_1__bindgen_ty_3 {
 pub from: __u64,
 pub to: __u64,
 pub len: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffd_msg__bindgen_ty_1__bindgen_ty_4 {
 pub start: __u64,
 pub end: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffd_msg__bindgen_ty_1__bindgen_ty_5 {
 pub reserved1: __u64,
 pub reserved2: __u64,
 pub reserved3: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_api {
 pub api: __u64,
 pub features: __u64,
 pub ioctls: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_range {
 pub start: __u64,
 pub len: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_register {
 pub range: uffdio_range,
 pub mode: __u64,
 pub ioctls: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_copy {
 pub dst: __u64,
@@ -912,34 +912,34 @@ pub len: __u64,
 pub mode: __u64,
 pub copy: __s64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_zeropage {
 pub range: uffdio_range,
 pub mode: __u64,
 pub zeropage: __s64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_writeprotect {
 pub range: uffdio_range,
 pub mode: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_continue {
 pub range: uffdio_range,
 pub mode: __u64,
 pub mapped: __s64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_poison {
 pub range: uffdio_range,
 pub mode: __u64,
 pub updated: __s64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct uffdio_move {
 pub dst: __u64,
@@ -948,8 +948,7 @@ pub len: __u64,
 pub mode: __u64,
 pub move_: __s64,
 }
-#[repr(C)]
-#[derive(Debug)]
+#[repr(C, packed(2))]
 pub struct linux_dirent64 {
 pub d_ino: crate::ctypes::c_ulonglong,
 pub d_off: crate::ctypes::c_longlong,
@@ -996,7 +995,7 @@ pub __unused3: crate::ctypes::c_ulong,
 pub __unused4: crate::ctypes::c_ulong,
 pub __unused5: crate::ctypes::c_ulong,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct stat64 {
 pub st_dev: crate::ctypes::c_ulonglong,
@@ -1035,7 +1034,7 @@ pub f_frsize: __u32,
 pub f_flags: __u32,
 pub f_spare: [__u32; 4usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct statfs64 {
 pub f_type: __u32,
@@ -1051,7 +1050,7 @@ pub f_frsize: __u32,
 pub f_flags: __u32,
 pub f_spare: [__u32; 4usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct compat_statfs64 {
 pub f_type: __u32,
@@ -1089,11 +1088,13 @@ pub sa_handler_kernel: __kernel_sighandler_t,
 pub sa_flags: crate::ctypes::c_ulong,
 pub sa_mask: kernel_sigset_t,
 }
+pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const LINUX_VERSION_CODE: u32 = 397568;
 pub const LINUX_VERSION_MAJOR: u32 = 6;
 pub const LINUX_VERSION_PATCHLEVEL: u32 = 17;
 pub const LINUX_VERSION_SUBLEVEL: u32 = 0;
-pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const __FD_SETSIZE: u32 = 1024;
 pub const _LINUX_CAPABILITY_VERSION_1: u32 = 429392688;
 pub const _LINUX_CAPABILITY_U32S_1: u32 = 1;
@@ -1107,10 +1108,14 @@ pub const VFS_CAP_FLAGS_MASK: i64 = -4278190081;
 pub const VFS_CAP_FLAGS_EFFECTIVE: u32 = 1;
 pub const VFS_CAP_REVISION_1: u32 = 16777216;
 pub const VFS_CAP_U32_1: u32 = 1;
+pub const XATTR_CAPS_SZ_1: u32 = 12;
 pub const VFS_CAP_REVISION_2: u32 = 33554432;
 pub const VFS_CAP_U32_2: u32 = 2;
+pub const XATTR_CAPS_SZ_2: u32 = 20;
 pub const VFS_CAP_REVISION_3: u32 = 50331648;
 pub const VFS_CAP_U32_3: u32 = 2;
+pub const XATTR_CAPS_SZ_3: u32 = 24;
+pub const XATTR_CAPS_SZ: u32 = 24;
 pub const VFS_CAP_U32: u32 = 2;
 pub const VFS_CAP_REVISION: u32 = 50331648;
 pub const _LINUX_CAPABILITY_VERSION: u32 = 429392688;
@@ -1288,6 +1293,23 @@ pub const EPOLL_CLOEXEC: u32 = 524288;
 pub const EPOLL_CTL_ADD: u32 = 1;
 pub const EPOLL_CTL_DEL: u32 = 2;
 pub const EPOLL_CTL_MOD: u32 = 3;
+pub const EPOLLIN: u32 = 1;
+pub const EPOLLPRI: u32 = 2;
+pub const EPOLLOUT: u32 = 4;
+pub const EPOLLERR: u32 = 8;
+pub const EPOLLHUP: u32 = 16;
+pub const EPOLLNVAL: u32 = 32;
+pub const EPOLLRDNORM: u32 = 64;
+pub const EPOLLRDBAND: u32 = 128;
+pub const EPOLLWRNORM: u32 = 256;
+pub const EPOLLWRBAND: u32 = 512;
+pub const EPOLLMSG: u32 = 1024;
+pub const EPOLLRDHUP: u32 = 8192;
+pub const EPOLL_URING_WAKE: u32 = 134217728;
+pub const EPOLLEXCLUSIVE: u32 = 268435456;
+pub const EPOLLWAKEUP: u32 = 536870912;
+pub const EPOLLONESHOT: u32 = 1073741824;
+pub const EPOLLET: u32 = 2147483648;
 pub const EPOLL_IOC_TYPE: u32 = 138;
 pub const POSIX_FADV_NORMAL: u32 = 0;
 pub const POSIX_FADV_RANDOM: u32 = 1;
@@ -1555,6 +1577,15 @@ pub const SYNC_FILE_RANGE_WAIT_BEFORE: u32 = 1;
 pub const SYNC_FILE_RANGE_WRITE: u32 = 2;
 pub const SYNC_FILE_RANGE_WAIT_AFTER: u32 = 4;
 pub const SYNC_FILE_RANGE_WRITE_AND_WAIT: u32 = 7;
+pub const RWF_HIPRI: u32 = 1;
+pub const RWF_DSYNC: u32 = 2;
+pub const RWF_SYNC: u32 = 4;
+pub const RWF_NOWAIT: u32 = 8;
+pub const RWF_APPEND: u32 = 16;
+pub const RWF_NOAPPEND: u32 = 32;
+pub const RWF_ATOMIC: u32 = 64;
+pub const RWF_DONTCACHE: u32 = 128;
+pub const RWF_SUPPORTED: u32 = 255;
 pub const PROCFS_IOCTL_MAGIC: u8 = 102u8;
 pub const PAGE_IS_WPALLOWED: u32 = 1;
 pub const PAGE_IS_WRITTEN: u32 = 2;
@@ -1841,6 +1872,7 @@ pub const MAP_HUGE_512MB: u32 = 1946157056;
 pub const MAP_HUGE_1GB: u32 = 2013265920;
 pub const MAP_HUGE_2GB: u32 = 2080374784;
 pub const MAP_HUGE_16GB: u32 = 2281701376;
+pub const POLLWRNORM: u32 = 4;
 pub const POLLWRBAND: u32 = 256;
 pub const POLLIN: u32 = 1;
 pub const POLLPRI: u32 = 2;
@@ -1853,6 +1885,8 @@ pub const POLLRDBAND: u32 = 128;
 pub const POLLMSG: u32 = 1024;
 pub const POLLREMOVE: u32 = 4096;
 pub const POLLRDHUP: u32 = 8192;
+pub const POLLFREE: u32 = 16384;
+pub const POLL_BUSY_LOOP: u32 = 32768;
 pub const GRND_NONBLOCK: u32 = 1;
 pub const GRND_RANDOM: u32 = 2;
 pub const GRND_INSECURE: u32 = 4;
@@ -1984,6 +2018,7 @@ pub const SIGPWR: u32 = 30;
 pub const SIGSYS: u32 = 31;
 pub const SIGUNUSED: u32 = 31;
 pub const SIGRTMIN: u32 = 32;
+pub const SIGRTMAX: u32 = 64;
 pub const MINSIGSTKSZ: u32 = 2048;
 pub const SIGSTKSZ: u32 = 8192;
 pub const SA_NOCLDSTOP: u32 = 1;
@@ -2001,6 +2036,7 @@ pub const SIG_BLOCK: u32 = 0;
 pub const SIG_UNBLOCK: u32 = 1;
 pub const SIG_SETMASK: u32 = 2;
 pub const SI_MAX_SIZE: u32 = 128;
+pub const __ADDR_BND_PKEY_PAD: u32 = 2;
 pub const SI_USER: u32 = 0;
 pub const SI_KERNEL: u32 = 128;
 pub const SI_QUEUE: i32 = -1;
@@ -2087,7 +2123,9 @@ pub const SIGEV_SIGNAL: u32 = 0;
 pub const SIGEV_NONE: u32 = 1;
 pub const SIGEV_THREAD: u32 = 2;
 pub const SIGEV_THREAD_ID: u32 = 4;
+pub const __ARCH_SIGEV_PREAMBLE_SIZE: u32 = 12;
 pub const SIGEV_MAX_SIZE: u32 = 64;
+pub const SIGEV_PAD_SIZE: u32 = 13;
 pub const SS_ONSTACK: u32 = 1;
 pub const SS_DISABLE: u32 = 2;
 pub const SS_AUTODISARM: u32 = 2147483648;
@@ -2793,13 +2831,21 @@ pub const P_PIDFD: u32 = 3;
 pub const XATTR_CREATE: u32 = 1;
 pub const XATTR_REPLACE: u32 = 2;
 pub const XATTR_OS2_PREFIX: &[u8; 5] = b"os2.\0";
+pub const XATTR_OS2_PREFIX_LEN: u32 = 4;
 pub const XATTR_MAC_OSX_PREFIX: &[u8; 5] = b"osx.\0";
+pub const XATTR_MAC_OSX_PREFIX_LEN: u32 = 4;
 pub const XATTR_BTRFS_PREFIX: &[u8; 7] = b"btrfs.\0";
+pub const XATTR_BTRFS_PREFIX_LEN: u32 = 6;
 pub const XATTR_HURD_PREFIX: &[u8; 5] = b"gnu.\0";
+pub const XATTR_HURD_PREFIX_LEN: u32 = 4;
 pub const XATTR_SECURITY_PREFIX: &[u8; 10] = b"security.\0";
+pub const XATTR_SECURITY_PREFIX_LEN: u32 = 9;
 pub const XATTR_SYSTEM_PREFIX: &[u8; 8] = b"system.\0";
+pub const XATTR_SYSTEM_PREFIX_LEN: u32 = 7;
 pub const XATTR_TRUSTED_PREFIX: &[u8; 9] = b"trusted.\0";
+pub const XATTR_TRUSTED_PREFIX_LEN: u32 = 8;
 pub const XATTR_USER_PREFIX: &[u8; 6] = b"user.\0";
+pub const XATTR_USER_PREFIX_LEN: u32 = 5;
 pub const XATTR_EVM_SUFFIX: &[u8; 4] = b"evm\0";
 pub const XATTR_NAME_EVM: &[u8; 13] = b"security.evm\0";
 pub const XATTR_IMA_SUFFIX: &[u8; 4] = b"ima\0";
@@ -2824,6 +2870,7 @@ pub const XATTR_CAPS_SUFFIX: &[u8; 11] = b"capability\0";
 pub const XATTR_NAME_CAPS: &[u8; 20] = b"security.capability\0";
 pub const XATTR_BPF_LSM_SUFFIX: &[u8; 5] = b"bpf.\0";
 pub const XATTR_NAME_BPF_LSM: &[u8; 14] = b"security.bpf.\0";
+pub const XATTR_NAME_BPF_LSM_LEN: u32 = 13;
 pub const XATTR_POSIX_ACL_ACCESS: &[u8; 17] = b"posix_acl_access\0";
 pub const XATTR_NAME_POSIX_ACL_ACCESS: &[u8; 24] = b"system.posix_acl_access\0";
 pub const XATTR_POSIX_ACL_DEFAULT: &[u8; 18] = b"posix_acl_default\0";
@@ -2852,6 +2899,11 @@ pub const TFD_TIMER_CANCEL_ON_SET: u32 = 2;
 pub const TFD_CLOEXEC: u32 = 524288;
 pub const TFD_NONBLOCK: u32 = 2048;
 pub const USERFAULTFD_IOC: u32 = 170;
+pub const UFFD_API: u32 = 170;
+pub const UFFD_API_REGISTER_MODES: u32 = 7;
+pub const UFFD_API_FEATURES: u32 = 131071;
+pub const UFFD_API_RANGE_IOCTLS: u32 = 508;
+pub const UFFD_API_RANGE_IOCTLS_BASIC: u32 = 460;
 pub const _UFFDIO_REGISTER: u32 = 0;
 pub const _UFFDIO_UNREGISTER: u32 = 1;
 pub const _UFFDIO_WAKE: u32 = 2;
@@ -2888,6 +2940,19 @@ pub const UFFD_FEATURE_WP_UNPOPULATED: u32 = 8192;
 pub const UFFD_FEATURE_POISON: u32 = 16384;
 pub const UFFD_FEATURE_WP_ASYNC: u32 = 32768;
 pub const UFFD_FEATURE_MOVE: u32 = 65536;
+pub const UFFDIO_REGISTER_MODE_MISSING: u32 = 1;
+pub const UFFDIO_REGISTER_MODE_WP: u32 = 2;
+pub const UFFDIO_REGISTER_MODE_MINOR: u32 = 4;
+pub const UFFDIO_COPY_MODE_DONTWAKE: u32 = 1;
+pub const UFFDIO_COPY_MODE_WP: u32 = 2;
+pub const UFFDIO_ZEROPAGE_MODE_DONTWAKE: u32 = 1;
+pub const UFFDIO_WRITEPROTECT_MODE_WP: u32 = 1;
+pub const UFFDIO_WRITEPROTECT_MODE_DONTWAKE: u32 = 2;
+pub const UFFDIO_CONTINUE_MODE_DONTWAKE: u32 = 1;
+pub const UFFDIO_CONTINUE_MODE_WP: u32 = 2;
+pub const UFFDIO_POISON_MODE_DONTWAKE: u32 = 1;
+pub const UFFDIO_MOVE_MODE_DONTWAKE: u32 = 1;
+pub const UFFDIO_MOVE_MODE_ALLOW_SRC_HOLES: u32 = 2;
 pub const UFFD_USER_MODE_ONLY: u32 = 1;
 pub const DT_UNKNOWN: u32 = 0;
 pub const DT_FIFO: u32 = 1;
@@ -2912,40 +2977,12 @@ pub const UMOUNT_UNUSED: u32 = 2147483648;
 pub const STDIN_FILENO: u32 = 0;
 pub const STDOUT_FILENO: u32 = 1;
 pub const STDERR_FILENO: u32 = 2;
-pub const RWF_HIPRI: u32 = 1;
-pub const RWF_DSYNC: u32 = 2;
-pub const RWF_SYNC: u32 = 4;
-pub const RWF_NOWAIT: u32 = 8;
-pub const RWF_APPEND: u32 = 16;
 pub const EFD_SEMAPHORE: u32 = 1;
 pub const EFD_CLOEXEC: u32 = 524288;
 pub const EFD_NONBLOCK: u32 = 2048;
-pub const EPOLLIN: u32 = 1;
-pub const EPOLLPRI: u32 = 2;
-pub const EPOLLOUT: u32 = 4;
-pub const EPOLLERR: u32 = 8;
-pub const EPOLLHUP: u32 = 16;
-pub const EPOLLNVAL: u32 = 32;
-pub const EPOLLRDNORM: u32 = 64;
-pub const EPOLLRDBAND: u32 = 128;
-pub const EPOLLWRNORM: u32 = 256;
-pub const EPOLLWRBAND: u32 = 512;
-pub const EPOLLMSG: u32 = 1024;
-pub const EPOLLRDHUP: u32 = 8192;
-pub const EPOLLEXCLUSIVE: u32 = 268435456;
-pub const EPOLLWAKEUP: u32 = 536870912;
-pub const EPOLLONESHOT: u32 = 1073741824;
-pub const EPOLLET: u32 = 2147483648;
 pub const TFD_SHARED_FCNTL_FLAGS: u32 = 526336;
 pub const TFD_CREATE_FLAGS: u32 = 526336;
 pub const TFD_SETTIME_FLAGS: u32 = 1;
-pub const UFFD_API: u32 = 170;
-pub const UFFDIO_REGISTER_MODE_MISSING: u32 = 1;
-pub const UFFDIO_REGISTER_MODE_WP: u32 = 2;
-pub const UFFDIO_REGISTER_MODE_MINOR: u32 = 4;
-pub const UFFDIO_COPY_MODE_DONTWAKE: u32 = 1;
-pub const UFFDIO_COPY_MODE_WP: u32 = 2;
-pub const UFFDIO_ZEROPAGE_MODE_DONTWAKE: u32 = 1;
 pub const SPLICE_F_MOVE: u32 = 1;
 pub const SPLICE_F_NONBLOCK: u32 = 2;
 pub const SPLICE_F_MORE: u32 = 4;

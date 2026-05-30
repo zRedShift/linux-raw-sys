@@ -112,20 +112,20 @@ pub struct sock_fprog {
 pub len: crate::ctypes::c_ushort,
 pub filter: *mut sock_filter,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct ptrace_peeksiginfo_args {
 pub off: __u64,
 pub flags: __u32,
 pub nr: __s32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct seccomp_metadata {
 pub filter_off: __u64,
 pub flags: __u64,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct ptrace_syscall_info {
 pub op: __u8,
@@ -136,19 +136,19 @@ pub instruction_pointer: __u64,
 pub stack_pointer: __u64,
 pub __bindgen_anon_1: ptrace_syscall_info__bindgen_ty_1,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct ptrace_syscall_info__bindgen_ty_1__bindgen_ty_1 {
 pub nr: __u64,
 pub args: [__u64; 6usize],
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct ptrace_syscall_info__bindgen_ty_1__bindgen_ty_2 {
 pub rval: __s64,
 pub is_error: __u8,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct ptrace_syscall_info__bindgen_ty_1__bindgen_ty_3 {
 pub nr: __u64,
@@ -156,7 +156,7 @@ pub args: [__u64; 6usize],
 pub ret_data: __u32,
 pub reserved2: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct ptrace_rseq_configuration {
 pub rseq_abi_pointer: __u64,
@@ -165,7 +165,7 @@ pub signature: __u32,
 pub flags: __u32,
 pub pad: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct ptrace_sud_config {
 pub mode: __u64,
@@ -203,7 +203,7 @@ pub a5: crate::ctypes::c_ulong,
 pub a6: crate::ctypes::c_ulong,
 pub retpc: crate::ctypes::c_ulong,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct seccomp_data {
 pub nr: crate::ctypes::c_int,
@@ -218,7 +218,7 @@ pub seccomp_notif: __u16,
 pub seccomp_notif_resp: __u16,
 pub seccomp_data: __u16,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct seccomp_notif {
 pub id: __u64,
@@ -226,7 +226,7 @@ pub pid: __u32,
 pub flags: __u32,
 pub data: seccomp_data,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct seccomp_notif_resp {
 pub id: __u64,
@@ -234,7 +234,7 @@ pub val: __s64,
 pub error: __s32,
 pub flags: __u32,
 }
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Debug, Copy, Clone)]
 pub struct seccomp_notif_addfd {
 pub id: __u64,
@@ -244,6 +244,8 @@ pub newfd: __u32,
 pub newfd_flags: __u32,
 }
 pub const __BITS_PER_LONG_LONG: u32 = 64;
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const EM_NONE: u32 = 0;
 pub const EM_M32: u32 = 1;
 pub const EM_SPARC: u32 = 2;
@@ -596,10 +598,13 @@ pub const AUDIT_PERM_WRITE: u32 = 2;
 pub const AUDIT_PERM_READ: u32 = 4;
 pub const AUDIT_PERM_ATTR: u32 = 8;
 pub const AUDIT_MESSAGE_TEXT_MAX: u32 = 8560;
+pub const AUDIT_NLGRP_MAX: u32 = 1;
 pub const AUDIT_FEATURE_VERSION: u32 = 1;
 pub const AUDIT_FEATURE_ONLY_UNSET_LOGINUID: u32 = 0;
 pub const AUDIT_FEATURE_LOGINUID_IMMUTABLE: u32 = 1;
 pub const AUDIT_LAST_FEATURE: u32 = 1;
+pub const AUDIT_UID_UNSET: u32 = 4294967295;
+pub const AUDIT_SID_UNSET: u32 = 4294967295;
 pub const BPF_LD: u32 = 0;
 pub const BPF_LDX: u32 = 1;
 pub const BPF_ST: u32 = 2;

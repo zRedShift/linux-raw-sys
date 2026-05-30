@@ -273,6 +273,8 @@ pub struct Elf64_Verdaux {
 pub vda_name: Elf64_Word,
 pub vda_next: Elf64_Word,
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const __BITS_PER_LONG_LONG: u32 = 64;
 pub const _MIPS_ISA_MIPS1: u32 = 1;
 pub const _MIPS_ISA_MIPS2: u32 = 2;

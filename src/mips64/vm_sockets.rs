@@ -77,6 +77,8 @@ pub svm_cid: crate::ctypes::c_uint,
 pub svm_flags: __u8,
 pub svm_zero: [crate::ctypes::c_uchar; 115usize],
 }
+pub const INT_MAX: u32 = 2147483647;
+pub const INT_MIN: i32 = -2147483648;
 pub const _K_SS_MAXSIZE: u32 = 128;
 pub const SOCK_SNDBUF_LOCK: u32 = 1;
 pub const SOCK_RCVBUF_LOCK: u32 = 2;

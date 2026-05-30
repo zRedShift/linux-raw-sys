@@ -45,6 +45,7 @@
 #include <linux/dma-buf.h>
 #include <linux/dma-heap.h>
 #include <linux/dm-ioctl.h>
+#include <linux/eventpoll.h>
 #include <linux/ext4.h>
 #include <linux/f2fs.h>
 #include <linux/fb.h>
